@@ -76,3 +76,8 @@ node_modules
 .next/types/package.json
 .next/types/app/layout.ts
 .next/types/app/page.ts
+.next/cache/webpack/client-production/1.pack
+.next/cache/webpack/client-production/2.pack
+.next/cache/webpack/client-production/index.pack.old
+.next/static/WAIZE8gKpNxdvGq2VOirD/_buildManifest.js
+.next/static/WAIZE8gKpNxdvGq2VOirD/_ssgManifest.js
