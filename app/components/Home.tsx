@@ -28,21 +28,21 @@ const Home: React.FC<HomeProps> = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
           <Image
-            src="/placeholder.svg?height=200&width=200"
+            src="/images/avilash-home.jpg?height=200&width=200"
             alt="Avilash"
             width={200}
             height={200}
             className="rounded-full mx-auto mb-8 border-4 border-white dark:border-gray-800"
           />
-          <h1 className="text-4xl font-bold mb-4 text-white">Avilash</h1>
-          <h2 className="text-2xl font-semibold mb-8 text-gray-200">Senior Software Engineer</h2>
+          <h1 className="text-4xl font-bold mb-4 text-white">Avilash Bharti</h1>
+          <h2 className="text-2xl font-semibold mb-8 text-gray-200">Senior Engineer</h2>
           <div className="flex justify-center space-x-6 mb-8">
-            <SocialLink href="https://www.linkedin.com/in/avilash" icon={<Linkedin />} label="LinkedIn" />
-            <SocialLink href="https://github.com/avilash" icon={<GitHub />} label="GitHub" />
-            <SocialLink href="https://www.instagram.com/avilash" icon={<Instagram />} label="Instagram" />
+            <SocialLink href="https://www.linkedin.com/in/avilashbharti" icon={<Linkedin />} label="LinkedIn" />
+            <SocialLink href="https://github.com/avilash-b" icon={<GitHub />} label="GitHub" />
+            <SocialLink href="https://www.instagram.com/avilash_bharti" icon={<Instagram />} label="Instagram" />
           </div>
           <a
-            href="/resume.pdf"
+            href="/docs/resume.pdf"
             download
             className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-600 transition duration-150 ease-in-out"
           >
