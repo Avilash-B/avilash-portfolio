@@ -12,12 +12,9 @@ const Header = () => {
   }
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 shadow-md">
-      <nav className="container mx-auto px-6 py-3">
+    <header className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-full shadow-lg transition-all duration-300 ease-in-out hover:bg-white/90 dark:hover:bg-gray-800/90">
+      <nav className="container mx-auto px-8 py-4">
         <div className="flex justify-between items-center">
-          <Link href="/" className="text-2xl font-bold text-gray-800 dark:text-white">
-            Avilash
-          </Link>
           <div className="hidden md:flex space-x-4">
             <NavLink href="#home">Home</NavLink>
             <NavLink href="#projects">Projects</NavLink>
@@ -35,7 +32,7 @@ const Header = () => {
           </button>
         </div>
         {isMenuOpen && (
-          <div className="md:hidden mt-4 space-y-2">
+          <div className="md:hidden mt-4 space-y-2 bg-white dark:bg-gray-800 rounded-3xl p-4 shadow-lg">
             <NavLink href="#home" onClick={toggleMenu}>Home</NavLink>
             <NavLink href="#projects" onClick={toggleMenu}>Projects</NavLink>
             <NavLink href="#skills" onClick={toggleMenu}>Skills</NavLink>

@@ -25,15 +25,15 @@ export default function Portfolio() {
     <div className="min-h-screen flex flex-col overflow-x-hidden">
       <div className={`${darkMode ? 'dark' : ''} scroll-smooth`} style={{ height: '100vh', overflowY: 'auto' }}>
         <Header />
-        <main className="flex-grow transition-all duration-300 ease-in-out pt-16" style={{ transform: `scale(${scale})` }}>
-          <Home toggleDarkMode={toggleDarkMode} isDarkMode={darkMode} />
+        <main className="flex-grow transition-all duration-300 ease-in-out" style={{ transform: `scale(${scale})` }}>
+          <Home />
           <Projects />
           <Skills />
           <Experience />
           <Education />
           <Contact />
         </main>
-        <DarkModeToggle toggleDarkMode={toggleDarkMode} isDarkMode={darkMode} />
+        <div><DarkModeToggle toggleDarkMode={toggleDarkMode} isDarkMode={darkMode} /></div>
         <Footer />
       </div>
     </div>
