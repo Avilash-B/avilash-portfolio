@@ -3,16 +3,16 @@ import { GraduationCap } from 'lucide-react'
 const Education = () => {
   const educations = [
     {
-      degree: "Master of Science in Computer Science",
-      institution: "Tech University",
-      duration: "2013 - 2015",
-      description: "Specialized in Artificial Intelligence and Machine Learning. Completed thesis on 'Optimizing Neural Networks for Edge Computing'.",
+      degree: "Master of Computer Application",
+      institution: "Centre for Development of Advanced Computing, India",
+      duration: "2016 - 2019",
+      description: "",
     },
     {
-      degree: "Bachelor of Science in Software Engineering",
-      institution: "State University",
-      duration: "2009 - 2013",
-      description: "Graduated with honors. Participated in multiple hackathons and coding competitions.",
+      degree: "Bachelor of Computer Application",
+      institution: "Maharaja Surajmal Institue, India",
+      duration: "2013 - 2016",
+      description: "",
     },
   ]
 
