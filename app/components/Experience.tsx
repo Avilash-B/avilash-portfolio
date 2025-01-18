@@ -3,22 +3,22 @@ import { Briefcase } from 'lucide-react'
 const Experience = () => {
   const experiences = [
     {
-      company: "Tech Innovators Inc.",
+      company: "Nagarro",
+      position: "Associate Staff Engineer",
+      duration: "Jan 2022 - Present",
+      description: "",
+    },
+    {
+      company: "Accolite Digital",
       position: "Senior Software Engineer",
-      duration: "Jan 2020 - Present",
-      description: "Lead development of scalable web applications using React and Node.js. Implemented microservices architecture and improved system performance by 40%.",
+      duration: "Nov 2020 - Jan 2022",
+      description: "",
     },
     {
-      company: "DataDriven Solutions",
-      position: "Full Stack Developer",
-      duration: "Mar 2017 - Dec 2019",
-      description: "Developed and maintained multiple client projects using React, Node.js, and PostgreSQL. Collaborated with cross-functional teams to deliver high-quality software solutions.",
-    },
-    {
-      company: "WebTech Startups",
-      position: "Junior Developer",
-      duration: "Jun 2015 - Feb 2017",
-      description: "Assisted in the development of web applications using JavaScript and PHP. Gained experience in agile methodologies and version control systems.",
+      company: "Fareportal",
+      position: "Software Engineer",
+      duration: "Jan 2019 - Nov 2020",
+      description: "",
     },
   ]
 
