@@ -1,14 +1,20 @@
 import { useState } from 'react'
 import { 
-  FaReact, FaNodeJs, FaPython, FaDocker, FaAws, 
-  FaHtml5, FaCss3Alt, FaJs, FaVuejs, FaAngular,
-  FaGitAlt, FaJira, FaTrello
-} from 'react-icons/fa'
+  FaReact, FaAngular, FaNodeJs, FaDocker, FaHtml5, FaJs,FaGitAlt
+} from 'react-icons/fa'  
+
 import { 
-  SiTypescript, SiNextdotjs, SiExpress, SiDjango, SiGraphql,
-  SiMongodb, SiPostgresql, SiRedis, SiKubernetes, SiTerraform,
-  SiJenkins, SiTailwindcss, SiSass
+  SiTypescript, SiNextdotjs, SiPostgresql, SiRedis, SiDotnet, SiApachekafka, SiRabbitmq
 } from 'react-icons/si'
+
+import{
+  VscAzure, VscAzureDevops
+} from 'react-icons/vsc'
+
+import{
+  TbBrandCSharp , TbSql
+} from 'react-icons/tb'
+
 
 interface Skill {
   name: string
@@ -16,32 +22,24 @@ interface Skill {
 }
 
 const skillsData: Skill[] = [
-  { name: 'React', icon: <FaReact /> },
-  { name: 'TypeScript', icon: <SiTypescript /> },
-  { name: 'Next.js', icon: <SiNextdotjs /> },
-  { name: 'Node.js', icon: <FaNodeJs /> },
-  { name: 'Express', icon: <SiExpress /> },
-  { name: 'Python', icon: <FaPython /> },
-  { name: 'Django', icon: <SiDjango /> },
-  { name: 'GraphQL', icon: <SiGraphql /> },
-  { name: 'MongoDB', icon: <SiMongodb /> },
+  
+  { name: '.Net', icon: <SiDotnet /> },
+  { name: 'C#', icon: <TbBrandCSharp /> },
+  { name: 'Azure', icon: <VscAzure /> },
+  { name: 'Azure Dev Ops', icon: <VscAzureDevops /> },    
+  { name: 'SQL Server', icon: <TbSql /> },
   { name: 'PostgreSQL', icon: <SiPostgresql /> },
   { name: 'Redis', icon: <SiRedis /> },
+  { name: 'Kafka', icon: <SiApachekafka /> },    
+  { name: 'RabbitMq', icon: <SiRabbitmq /> },
   { name: 'Docker', icon: <FaDocker /> },
-  { name: 'Kubernetes', icon: <SiKubernetes /> },
-  { name: 'AWS', icon: <FaAws /> },
-  { name: 'Terraform', icon: <SiTerraform /> },
-  { name: 'Jenkins', icon: <SiJenkins /> },
-  { name: 'Git', icon: <FaGitAlt /> },
-  { name: 'HTML5', icon: <FaHtml5 /> },
-  { name: 'CSS3', icon: <FaCss3Alt /> },
-  { name: 'JavaScript', icon: <FaJs /> },
-  { name: 'Vue.js', icon: <FaVuejs /> },
+  { name: 'Git', icon: <FaGitAlt /> },  
+  { name: 'JavaScript', icon: <FaJs /> },  
+  { name: 'TypeScript', icon: <SiTypescript /> },
   { name: 'Angular', icon: <FaAngular /> },
-  { name: 'Tailwind CSS', icon: <SiTailwindcss /> },
-  { name: 'Sass', icon: <SiSass /> },
-  { name: 'Jira', icon: <FaJira /> },
-  { name: 'Trello', icon: <FaTrello /> },
+  { name: 'React', icon: <FaReact /> },
+  { name: 'Next.js', icon: <SiNextdotjs /> },
+  { name: 'HTML5', icon: <FaHtml5 /> },
 ]
 
 const Skills = () => {
