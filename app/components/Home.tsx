@@ -19,11 +19,11 @@ const Home: React.FC<HomeProps> = () => {
           <Image
             src="/images/avilash-home.jpg?height=200&width=200"
             alt="Avilash"
-            width={200}
-            height={200}
+            width={220}
+            height={220}
             className="rounded-full mx-auto mb-8 border-4 border-white dark:border-gray-800"
           />      
-          <h1 className="text-3xl font-bold mb-4 text-gray-100"> Hello, I'm Avilash. 
+          <h1 className="text-3xl font-semibold mb-4 text-gray-200"> Hello, I'm Avilash. 
             I'm an Associate Staff Engineer at Nagarro in Gurugram, India. 
             I'm currently working with .NET, SQL, Azure, and Angular.</h1>  
           <h2 className="text-2xl font-semibold mb-8 text-gray-300">

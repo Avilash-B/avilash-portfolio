@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { ExternalLink, GitlabIcon as GitHub } from 'lucide-react'
 
 const Projects = () => {
@@ -6,27 +5,59 @@ const Projects = () => {
     {
       title: "Portfolio",
       description: "",
-      image: "/placeholder.svg?height=200&width=300",
-      technologies: ["React", "Node.js"],
+      image: "/images/project1.jpg",
+      technologies: ["Next.js", "TypesScript", "Node.js"],
       githubLink: "https://github.com/Avilash-B/avilash-portfolio",
-      liveLink: "https://avilashbharti.com"
-      }
-    // {
-    //   title: "Task Management App",
-    //   description: "A Kanban-style task management application with real-time updates.",
-    //   image: "/placeholder.svg?height=200&width=300",
-    //   technologies: ["React", "Firebase", "Material-UI"],
-    //   githubLink: "https://github.com/avilash/task-management-app",
-    //   liveLink: "https://task-app-demo.com"
-    // },
-    // {
-    //   title: "Weather Forecast Dashboard",
-    //   description: "A responsive weather dashboard with data visualization.",
-    //   image: "/placeholder.svg?height=200&width=300",
-    //   technologies: ["React", "D3.js", "OpenWeatherMap API"],
-    //   githubLink: "https://github.com/avilash/weather-dashboard",
-    //   liveLink: "https://weather-dashboard-demo.com"
-    // }
+      liveLink: "https://avilashbharti.in"
+    },
+    {
+      title: "SKY API",
+      description: "",
+      image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET 8", "C#", "Azure", "SQL server", "Xunit", "Angular"],
+      githubLink: "",
+      liveLink: "https://developer.blackbaud.com/skyapi/products/crm"
+    },
+    {
+      title: "Blackbaud CRM",
+      description: "",
+      image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET", "SQL server"],
+      githubLink: "",
+      liveLink: "https://developer.blackbaud.com/skyapi/products/crm"
+    },
+    {
+      title: "Remote meter middleware",
+      description: "",
+      image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET Core", "C#", "Postgres", "Kafka", "Hangfire","Xunit"],
+      githubLink: "",
+      liveLink: "https://www.securemeters.com/"
+    },
+    {
+      title: "CRM",
+      description: "",
+      image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET Core", "C#", "Redis", "SQL server", "Nunit", "React"],
+      githubLink: "",
+      liveLink: "https://www.cheapoair.com/profiles/#/my-account/my-details"
+    },
+    {
+      title: "Abandon Cart tracker",
+      description: "",
+      image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET core", "C#", "Mongo DB", "Nunit"],
+      githubLink: "",
+      liveLink: "https://www.cheapoair.com/"
+    },
+    {
+      title: "Loyalty Rewards",
+      description: "",
+      image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET framework", "C#", "SQL server", "Windows Jobs","Nunit", "Backbone js"],
+      githubLink: "",
+      liveLink: "https://www.cheapoair.com/profiles/#/my-rewards/redeem"
+    }
   ]
 
   return (
@@ -36,13 +67,13 @@ const Projects = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
             <div key={project.title} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
-              <Image
+              {/* <Image
                 src={project.image}
                 alt={project.title}
                 width={300}
                 height={200}
                 className="w-full h-48 object-cover"
-              />
+              /> */}
               <div className="p-6">
                 <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">{project.title}</h3>
                 <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
@@ -54,7 +85,7 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className="flex justify-between">
-                  <a href={project.githubLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center">
+                  <a href={project.githubLink} ng-if= "{project}" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center">
                     <GitHub className="w-4 h-4 mr-1" />
                     GitHub
                   </a>
