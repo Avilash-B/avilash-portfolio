@@ -46,7 +46,7 @@ const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
 
   return (
-    <section id="skills" className="py-20 bg-white dark:bg-gray-800">
+    <section id="skills" className="py-20 bg-white dark:bg-gray-700">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Skills</h2>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8">
@@ -58,8 +58,8 @@ const Skills = () => {
               onMouseLeave={() => setHoveredSkill(null)}
             >
               <div
-                className={`text-4xl mb-2 transition-all duration-300 ease-in-out ${
-                  hoveredSkill === skill.name ? 'transform scale-125' : ''
+                className={`text-5xl mb-2 transition-all duration-300 ease-in-out ${
+                  hoveredSkill === skill.name ? 'transform scale-150' : ''
                 }`}
               >
                 {skill.icon}
