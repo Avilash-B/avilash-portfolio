@@ -46,9 +46,9 @@ const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
 
   return (
-    <section id="skills" className="py-20 bg-white dark:bg-gray-700">
+    <section id="skills" className="py-20 bg-white dark:bg-gray-500">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Skills</h2>
+        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-black">Skills</h2>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8">
           {skillsData.map((skill) => (
             <div
@@ -64,7 +64,7 @@ const Skills = () => {
               >
                 {skill.icon}
               </div>
-              <span className="text-sm text-center text-gray-600 dark:text-gray-400">{skill.name}</span>
+              <span className="text-sm text-center text-gray-600 dark:text-black">{skill.name}</span>
             </div>
           ))}
         </div>
