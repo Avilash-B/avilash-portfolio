@@ -6,7 +6,7 @@ const Projects = () => {
       title: "Portfolio",
       description: "",
       image: "/images/project1.jpg",
-      technologies: ["Next.js", "TypesScript", "Node.js"],
+      technologies: ["Next.js", "TypesScript", "Node.js", ".NET", "Postgres", "Docker"],
       githubLink: "https://github.com/Avilash-B/avilash-portfolio",
       liveLink: "https://avilashbharti.in"
     },
@@ -22,7 +22,7 @@ const Projects = () => {
       title: "Blackbaud CRM",
       description: "",
       image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET", "SQL server"],
+      technologies: [".NET", "C#", "VB.NET", "SQL server", "Angular", "MsTest", ],
       githubLink: "",
       liveLink: "https://www.blackbaud.com/products/blackbaud-crm"
     },
@@ -91,17 +91,6 @@ const Projects = () => {
                   ))}
                 </div>
                 <div className={`flex ${project.liveLink ? "justify-between" : "justify-end"}`}>
-                  {project.githubLink && (
-                    <a
-                      href={project.githubLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center"
-                    >
-                      <GitHub className="w-4 h-4 mr-1" />
-                      GitHub
-                    </a>
-                  )}
                   {project.liveLink && (
                     <a
                       href={project.liveLink}
@@ -113,6 +102,17 @@ const Projects = () => {
                       Reference
                     </a>
                   )}
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center"
+                    >
+                      <GitHub className="w-4 h-4 mr-1" />
+                      GitHub
+                    </a>
+                  )}                  
                 </div>
               </div>
             </div>
