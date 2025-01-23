@@ -24,7 +24,7 @@ const Projects = () => {
       image: "/placeholder.svg?height=200&width=300",
       technologies: [".NET", "SQL server"],
       githubLink: "",
-      liveLink: "https://developer.blackbaud.com/skyapi/products/crm"
+      liveLink: "https://www.blackbaud.com/products/blackbaud-crm"
     },
     {
       title: "Remote meter middleware",
@@ -35,7 +35,7 @@ const Projects = () => {
       liveLink: "https://www.securemeters.com/"
     },
     {
-      title: "CRM",
+      title: "CRM for OTA",
       description: "",
       image: "/placeholder.svg?height=200&width=300",
       technologies: [".NET Core", "C#", "Redis", "SQL server", "Nunit", "React"],
@@ -66,9 +66,12 @@ const Projects = () => {
         <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Projects</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
-            <div key={project.title} className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl">
+            <div
+              key={project.title}
+              className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl"
+            >
               {/* <Image
-                src={project.image}
+                src={project.image || "/placeholder.svg"}
                 alt={project.title}
                 width={300}
                 height={200}
@@ -79,20 +82,37 @@ const Projects = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.technologies.map((tech) => (
-                    <span key={tech} className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-sm">
+                    <span
+                      key={tech}
+                      className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-sm"
+                    >
                       {tech}
                     </span>
                   ))}
                 </div>
-                <div className="flex justify-between">
-                  <a href={project.githubLink} ng-if= "{project}" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center">
-                    <GitHub className="w-4 h-4 mr-1" />
-                    GitHub
-                  </a>
-                  <a href={project.liveLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center">
-                    <ExternalLink className="w-4 h-4 mr-1" />
-                    Live Demo
-                  </a>
+                <div className={`flex ${project.liveLink ? "justify-between" : "justify-end"}`}>
+                  {project.githubLink && (
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center"
+                    >
+                      <GitHub className="w-4 h-4 mr-1" />
+                      GitHub
+                    </a>
+                  )}
+                  {project.liveLink && (
+                    <a
+                      href={project.liveLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center"
+                    >
+                      <ExternalLink className="w-4 h-4 mr-1" />
+                      Reference
+                    </a>
+                  )}
                 </div>
               </div>
             </div>
@@ -102,6 +122,8 @@ const Projects = () => {
     </section>
   )
 }
+
+
 
 export default Projects
 
