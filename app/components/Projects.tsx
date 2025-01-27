@@ -1,4 +1,5 @@
-import { ExternalLink, GitlabIcon as GitHub } from 'lucide-react'
+import { ExternalLink, GitlabIcon as GitHub } from "lucide-react"
+import { useScrollAnimation } from "../hooks/useScrollAnimation"
 
 const Projects = () => {
   const projects = [
@@ -60,12 +61,24 @@ const Projects = () => {
     }
   ]
 
+  const { ref, isVisible } = useScrollAnimation()
+
   return (
-    <section id="projects" className="py-20 bg-gray-100 dark:bg-gray-900">
+    <section id="projects" className="py-20 bg-gray-100 dark:bg-gray-900">      
+    <div
+        ref={ref}
+        className={`transition-all duration-1000 ease-in-out ${
+          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
+        }`}>
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Projects</h2>
+        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Projects</h2>        
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {projects.map((project) => (
+            <div
+            ref={ref}
+            className={`transition-all duration-1000 ease-in-out ${
+              isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
+            }`}>
             <div
               key={project.title}
               className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl"
@@ -116,14 +129,16 @@ const Projects = () => {
                 </div>
               </div>
             </div>
+            </div>
+            
           ))}
         </div>
-      </div>
+        </div>
+        </div>
+      
     </section>
   )
 }
-
-
 
 export default Projects
 

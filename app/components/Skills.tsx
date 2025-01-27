@@ -15,6 +15,7 @@ import{
   TbBrandCSharp , TbSql
 } from 'react-icons/tb'
 
+import { useScrollAnimation } from "../hooks/useScrollAnimation"
 
 interface Skill {
   name: string
@@ -44,13 +45,26 @@ const skillsData: Skill[] = [
 
 const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
+  const { ref, isVisible } = useScrollAnimation()
 
   return (
     <section id="skills" className="py-20 bg-white dark:bg-gray-500">
+      <div
+        ref={ref}
+        className={`transition-all duration-1000 ease-in-out ${
+          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
+        }`}
+      >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-black">Skills</h2>
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8">
           {skillsData.map((skill) => (
+            <div
+            ref={ref}
+            className={`transition-all duration-1000 ease-in-out ${
+              isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
+            }`}
+          >
             <div
               key={skill.name}
               className="flex flex-col items-center justify-center"
@@ -66,8 +80,10 @@ const Skills = () => {
               </div>
               <span className="text-sm text-center text-gray-600 dark:text-black">{skill.name}</span>
             </div>
+            </div>
           ))}
         </div>
+      </div>
       </div>
     </section>
   )

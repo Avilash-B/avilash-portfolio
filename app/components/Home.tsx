@@ -2,15 +2,23 @@ import Image from "next/image"
 import { Linkedin, GitlabIcon as GitHub, Instagram, FileDown } from "lucide-react"
 import { useState } from "react"
 import VantaBackground from "./VantaBackground"
+import { useScrollAnimation } from "../hooks/useScrollAnimation"
 
 type HomeProps = {}
 
 const Home: React.FC<HomeProps> = () => {
+  const { ref, isVisible } = useScrollAnimation()
   return (
     <section id="home" className="min-h-screen pt-20 flex items-center justify-center relative overflow-hidden">
       <VantaBackground>
         <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 dark:from-blue-800/20 dark:to-purple-900/20" />
       </VantaBackground>
+      <div
+        ref={ref}
+        className={`transition-all duration-1000 ease-in-out ${
+          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
+        }`}
+      >
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center">
@@ -35,6 +43,7 @@ const Home: React.FC<HomeProps> = () => {
             <SocialLink href="/docs/resume.pdf" icon={<FileDown />} label="Download Resume" download />
           </div>
         </div>
+      </div>
       </div>
     </section>
   )
