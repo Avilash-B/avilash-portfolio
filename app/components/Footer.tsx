@@ -7,8 +7,9 @@ const Footer = () => {
             <p>&copy; {new Date().getFullYear()} Avilash. All rights reserved.</p>
           </div>
           <div className="flex space-x-4">
-            <a href="#" className="hover:text-gray-300 transition duration-150 ease-in-out">Privacy Policy</a>
-            <a href="#" className="hover:text-gray-300 transition duration-150 ease-in-out">Terms of Service</a>
+          <a href="#" className="hover:text-gray-300 transition duration-150 ease-in-out">Self Hosted</a>
+            {/* <a href="#" className="hover:text-gray-300 transition duration-150 ease-in-out">Privacy Policy</a>
+            <a href="#" className="hover:text-gray-300 transition duration-150 ease-in-out">Terms of Service</a> */}
           </div>
         </div>
       </div>

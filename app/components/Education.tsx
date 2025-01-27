@@ -1,4 +1,5 @@
-import { GraduationCap } from 'lucide-react'
+import { GraduationCap } from "lucide-react"
+import { useScrollAnimation } from "../hooks/useScrollAnimation"
 
 const Education = () => {
   const educations = [
@@ -16,10 +17,24 @@ const Education = () => {
     },
   ]
 
+  const { ref, isVisible } = useScrollAnimation()
+
   return (
     <section id="education" className="py-20 bg-white dark:bg-gray-800">
+      <div
+        ref={ref}
+        className={`transition-all duration-1000 ease-in-out ${
+          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
+        }`}
+      >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Education</h2>
+        <div
+        ref={ref}
+        className={`transition-all duration-1000 ease-in-out ${
+          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
+        }`}
+      >
         <div className="space-y-8">
           {educations.map((edu, index) => (
             <div key={index} className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md">
@@ -32,7 +47,9 @@ const Education = () => {
               <p className="text-gray-700 dark:text-gray-300">{edu.description}</p>
             </div>
           ))}
+          </div>
         </div>
+      </div>
       </div>
     </section>
   )
