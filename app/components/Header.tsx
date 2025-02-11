@@ -44,7 +44,7 @@ const Header = () => {
     <>
       {isMobile && (
         <button
-          className="fixed top-4 left-4 z-50 p-2 bg-white dark:bg-gray-800 rounded-md shadow-md"
+          className="fixed top-4 left-4 z-50 p-2 bg-white/85 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl"
           onClick={toggleMenu}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
