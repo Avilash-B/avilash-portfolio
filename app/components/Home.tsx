@@ -47,8 +47,8 @@ const Home: React.FC<HomeProps> = () => {
             <Image
               src="/images/avilash-home.jpg?height=200&width=200"
               alt="Avilash"
-              width={220}
-              height={220}
+              width={210}
+              height={210}
               className="rounded-full mx-auto mb-8 border-4 border-white dark:border-gray-800"
             />
             <Card className="max-w-lg mx-auto mb-8 bg-white/85 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl">
@@ -60,7 +60,7 @@ const Home: React.FC<HomeProps> = () => {
                     <span className="text-blue-600 dark:text-blue-400">string</span> ={" "}
                     <span className="text-green-600 dark:text-green-400">"Avilash"</span>;
                   </div>
-                  <div className="text-gray-500">//working as an Associate Staff Engineer @Nagarro</div>
+                  <div className="text-gray-500">// working as an Associate Staff Engineer, @Nagarro</div>
                   <div>
                     <span className="text-purple-600 dark:text-purple-400">const</span>{" "}
                     <span className="text-yellow-600 dark:text-yellow-400">birthday</span>:{" "}
