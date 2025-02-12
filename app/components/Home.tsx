@@ -100,13 +100,13 @@ const SocialLink = ({
   const [showLabel, setShowLabel] = useState(false)
 
   return (
-    <div className="relative">
+    <div className="relative group">
       <a
         href={href}
         target={download ? "_self" : "_blank"}
         rel={download ? "" : "noopener noreferrer"}
         download={download}
-        className="text-white hover:text-gray-200 transition duration-300 ease-in-out p-2 rounded-full bg-white/10 hover:bg-white/20 transform hover:scale-125"
+        className="text-white hover:text-gray-200 transition duration-300 ease-in-out group-hover:scale-125 inline-block transform"
         aria-label={label}
         onMouseEnter={() => setShowLabel(true)}
         onMouseLeave={() => setShowLabel(false)}
