@@ -20,7 +20,6 @@ const Contact = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     try {
-      debugger;
       const response = await fetch("https://api.avilashbharti.in/anonymous/addContactMe", {
         method: "POST",
         headers: {
