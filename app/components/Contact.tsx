@@ -17,12 +17,25 @@ const Contact = () => {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    // Here you would typically send the form data to a server
-    console.log("Form submitted:", formData)
-    // Reset form after submission
-    setFormData({ name: "", email: "", message: "" })
+    try {
+      const response = await fetch("https://api.avilashbharti.in/anonymous/addContactMe", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {        
+        setFormData({ name: "", email: "", message: "" })
+      } else {
+        console.error("Form submission failed")
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error)
+    }
   }
 
   const { ref, isVisible } = useScrollAnimation()
