@@ -28,8 +28,7 @@ const Contact = () => {
         body: JSON.stringify(formData),
       })
 
-      if (response.ok) {
-        console.log("Form submitted successfully")
+      if (response.ok) {        
         setFormData({ name: "", email: "", message: "" })
       } else {
         console.error("Form submission failed")
