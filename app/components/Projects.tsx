@@ -9,10 +9,10 @@ const Projects = () => {
       image: "/images/project1.jpg",
       technologies: ["Next.js", "TypesScript", "Node.js", ".NET", "Postgres", "Docker"],
       githubLink: "https://github.com/Avilash-B/avilash-portfolio",
-      liveLink: "https://avilashbharti.in"
+      liveLink: ""
     },
     {
-      title: "SKY API",
+      title: "SKY API - Unified API solution",
       description: "",
       image: "/placeholder.svg?height=200&width=300",
       technologies: [".NET 8", "C#", "Azure", "SQL server", "Xunit", "Angular"],
@@ -20,10 +20,10 @@ const Projects = () => {
       liveLink: "https://developer.blackbaud.com/skyapi/products/crm"
     },
     {
-      title: "Blackbaud CRM",
+      title: "CRM for Non-Profit domain",
       description: "",
       image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET", "C#", "VB.NET", "SQL server", "Angular", "MsTest", ],
+      technologies: [".NET", "C#", "VB.NET", "SQL server", "MsTest", ],
       githubLink: "",
       liveLink: "https://www.blackbaud.com/products/blackbaud-crm"
     },
