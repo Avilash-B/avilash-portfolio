@@ -11,6 +11,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { useScrollEffect } from './hooks/useScrollEffect'
 import DarkModeToggle from './components/DarkModeToggle'
+// import { useTelemetry } from './hooks/useTelemetry'
 
 export default function Portfolio() {
   const [darkMode, setDarkMode] = useState(false)
@@ -20,6 +21,8 @@ export default function Portfolio() {
   const toggleDarkMode = () => {
     setDarkMode(!darkMode)
   }
+
+  // useTelemetry();
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
