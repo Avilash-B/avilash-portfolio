@@ -60,26 +60,26 @@ const Skills = () => {
         <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-8">
           {skillsData.map((skill) => (
             <div
-            ref={ref}
-            className={`transition-all duration-1000 ease-in-out ${
-              isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
-            }`}
-          >
-            <div
               key={skill.name}
-              className="flex flex-col items-center justify-center"
-              onMouseEnter={() => setHoveredSkill(skill.name)}
-              onMouseLeave={() => setHoveredSkill(null)}
+              ref={ref}
+              className={`transition-all duration-1000 ease-in-out ${
+                isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
+              }`}
             >
               <div
-                className={`text-5xl mb-2 transition-all duration-300 ease-in-out ${
-                  hoveredSkill === skill.name ? 'transform scale-150' : ''
-                }`}
+                className="flex flex-col items-center justify-center"
+                onMouseEnter={() => setHoveredSkill(skill.name)}
+                onMouseLeave={() => setHoveredSkill(null)}
               >
-                {skill.icon}
+                <div
+                  className={`text-5xl mb-2 transition-all duration-300 ease-in-out ${
+                    hoveredSkill === skill.name ? 'transform scale-150' : ''
+                  }`}
+                >
+                  {skill.icon}
+                </div>
+                <span className="text-sm text-center text-gray-600 dark:text-black">{skill.name}</span>
               </div>
-              <span className="text-sm text-center text-gray-600 dark:text-black">{skill.name}</span>
-            </div>
             </div>
           ))}
         </div>
