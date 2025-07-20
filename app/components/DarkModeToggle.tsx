@@ -1,5 +1,6 @@
 import React from 'react'
-import { Moon, Sun } from 'lucide-react'
+import { Fab, useTheme } from '@mui/material'
+import { DarkMode, LightMode } from '@mui/icons-material'
 
 interface DarkModeToggleProps {
   toggleDarkMode: () => void
@@ -7,17 +8,33 @@ interface DarkModeToggleProps {
 }
 
 const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ toggleDarkMode, isDarkMode }) => {
+  const theme = useTheme()
+
   return (
-    <button
+    <Fab
       onClick={toggleDarkMode}
-      className="fixed bottom-4 right-6 p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white transition-all duration-300 ease-in-out hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-500"
       aria-label="Toggle dark mode"
+      sx={{
+        position: 'fixed',
+        bottom: 16,
+        right: 16,
+        zIndex: 1400,
+        transition: 'all 0.3s ease-in-out',
+        '&:hover': {
+          transform: 'scale(1.1)',
+        },
+        backgroundColor: theme.palette.mode === 'dark' ? 'grey.700' : 'grey.200',
+        color: theme.palette.mode === 'dark' ? 'white' : 'grey.800',
+        boxShadow: 3,
+        '@media (max-width: 600px)': {
+          bottom: 20,
+          right: 20,
+          transform: 'scale(0.9)',
+        },
+      }}
     >
-      <div className="w-6 h-6 relative">
-        <Moon className={`w-full h-full absolute transition-opacity duration-300 ease-in-out ${isDarkMode ? 'opacity-0' : 'opacity-100'}`} />
-        <Sun className={`w-full h-full absolute transition-opacity duration-300 ease-in-out ${isDarkMode ? 'opacity-100' : 'opacity-0'}`} />
-      </div>
-    </button>
+      {isDarkMode ? <LightMode /> : <DarkMode />}
+    </Fab>
   )
 }
 

@@ -1,59 +1,149 @@
-import { GraduationCap } from "lucide-react"
-import { useScrollAnimation } from "../hooks/useScrollAnimation"
+import React, { useRef, useEffect, useState } from "react";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Grow from "@mui/material/Grow";
+import SchoolIcon from "@mui/icons-material/School";
+
+const educations = [
+  {
+    degree: "Master of Computer Application",
+    institution: "Centre for Development of Advanced Computing, India",
+    duration: "2016 - 2019",
+    description: "",
+  },
+  {
+    degree: "Bachelor of Computer Application",
+    institution: "Maharaja Surajmal Institue, India",
+    duration: "2013 - 2016",
+    description: "",
+  },
+  {
+    degree: "Schooling",
+    institution: "Red Roses Public School, Delhi - India",
+    duration: "2001 - 2013",
+    description: "",
+  },
+];
 
 const Education = () => {
-  const educations = [
-    {
-      degree: "Master of Computer Application",
-      institution: "Centre for Development of Advanced Computing, India",
-      duration: "2016 - 2019",
-      description: "",
-    },
-    {
-      degree: "Bachelor of Computer Application",
-      institution: "Maharaja Surajmal Institue, India",
-      duration: "2013 - 2016",
-      description: "",
-    },
-  ]
+  const [visible, setVisible] = useState(Array(educations.length).fill(false));
+  const cardRefs = useRef([]);
 
-  const { ref, isVisible } = useScrollAnimation()
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const target = entry.target as HTMLElement;
+          if (entry.isIntersecting && !visible[target.dataset.index]) {
+            setVisible((prev) =>
+              prev.map((v, i) =>
+                i === Number(target.dataset.index) ? true : v
+              )
+            );
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+    return () => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+    // eslint-disable-next-line
+  }, [cardRefs, visible]);
 
   return (
-    <section id="education" className="py-20 bg-white dark:bg-gray-800">
-      <div
-        ref={ref}
-        className={`transition-all duration-1000 ease-in-out ${
-          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
-        }`}
-      >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Education</h2>
-        <div
-        ref={ref}
-        className={`transition-all duration-1000 ease-in-out ${
-          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
-        }`}
-      >
-        <div className="space-y-8">
-          {educations.map((edu, index) => (
-            <div key={index} className="bg-gray-100 dark:bg-gray-700 p-6 rounded-lg shadow-md">
-              <div className="flex items-center mb-4">
-                <GraduationCap className="w-6 h-6 text-blue-500 mr-2" />
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{edu.degree}</h3>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 mb-2">{edu.institution}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-500 mb-4">{edu.duration}</p>
-              <p className="text-gray-700 dark:text-gray-300">{edu.description}</p>
-            </div>
+    <Box
+      component="section"
+      id="education"
+      py={10}
+      sx={{
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'dark'
+            ? 'grey.900'
+            : 'grey.100'
+      }}
+    >
+      <Container maxWidth="md">
+        <Typography
+          variant="h3"
+          align="center"
+          fontWeight="bold"
+          gutterBottom
+          fontFamily="monospace"
+          sx={{ color: 'text.primary' }}
+        >
+          Education
+        </Typography>
+        <Box mt={4}>
+          {educations.map((edu, idx) => (
+            <Grow in={visible[idx]} timeout={700 + idx * 220} key={idx}>
+              <Box
+                ref={(el) => (cardRefs.current[idx] = el)}
+                data-index={idx}
+                mb={4}
+              >
+                <Card
+                  elevation={3}
+                  sx={{
+                    width:'auto',
+                    backgroundColor: 'background.paper',
+                    backdropFilter: 'blur(8px)',
+                    borderRadius: 4,
+                    transition: 'all 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: 4,
+                    },
+                  }}
+                >
+                  <CardContent>
+                    <Box display="flex" alignItems="center" mb={1.5}>
+                      <SchoolIcon color="primary" sx={{ mr: 1 }} />
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        fontWeight="medium"
+                        color="text.primary"
+                        fontFamily="monospace"
+                      >
+                        {edu.degree}
+                      </Typography>
+                    </Box>
+                    <Typography
+                      variant="body1"
+                      mb={0.5}
+                      color="text.secondary"
+                    >
+                      {edu.institution}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      mb={1}
+                      fontFamily="monospace"
+                    >
+                      {edu.duration}
+                    </Typography>
+                    <Typography variant="body2" color="text.primary">
+                      {edu.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            </Grow>
           ))}
-          </div>
-        </div>
-      </div>
-      </div>
-    </section>
-  )
-}
+        </Box>
+      </Container>
+    </Box>
+  );
+};
 
-export default Education
-
+export default Education;

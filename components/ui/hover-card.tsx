@@ -1,29 +1,88 @@
 "use client"
 
 import * as React from "react"
-import * as HoverCardPrimitive from "@radix-ui/react-hover-card"
+import { Popover, Paper, PaperProps } from '@mui/material'
 
-import { cn } from "@/lib/utils"
+interface HoverCardProps {
+  children: React.ReactNode
+  open?: boolean
+  onOpenChange?: (open: boolean) => void
+}
 
-const HoverCard = HoverCardPrimitive.Root
+const HoverCard: React.FC<HoverCardProps> = ({ children, open, onOpenChange }) => {
+  const [anchorEl, setAnchorEl] = React.useState<HTMLElement | null>(null)
+  const [isOpen, setIsOpen] = React.useState(false)
 
-const HoverCardTrigger = HoverCardPrimitive.Trigger
+  const handleMouseEnter = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget)
+    setIsOpen(true)
+    onOpenChange?.(true)
+  }
 
-const HoverCardContent = React.forwardRef<
-  React.ElementRef<typeof HoverCardPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof HoverCardPrimitive.Content>
->(({ className, align = "center", sideOffset = 4, ...props }, ref) => (
-  <HoverCardPrimitive.Content
-    ref={ref}
-    align={align}
-    sideOffset={sideOffset}
-    className={cn(
-      "z-50 w-64 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
-      className
-    )}
-    {...props}
-  />
-))
-HoverCardContent.displayName = HoverCardPrimitive.Content.displayName
+  const handleMouseLeave = () => {
+    setAnchorEl(null)
+    setIsOpen(false)
+    onOpenChange?.(false)
+  }
+
+  return (
+    <div onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+      {children}
+      <Popover
+        open={open ?? isOpen}
+        anchorEl={anchorEl}
+        onClose={handleMouseLeave}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'center',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'center',
+        }}
+        disableRestoreFocus
+        sx={{
+          pointerEvents: 'none',
+          '& .MuiPopover-paper': {
+            pointerEvents: 'auto',
+          },
+        }}
+      />
+    </div>
+  )
+}
+
+interface HoverCardTriggerProps {
+  children: React.ReactNode
+  asChild?: boolean
+}
+
+const HoverCardTrigger: React.FC<HoverCardTriggerProps> = ({ children }) => {
+  return <>{children}</>
+}
+
+interface HoverCardContentProps extends PaperProps {
+  align?: 'start' | 'center' | 'end'
+  sideOffset?: number
+}
+
+const HoverCardContent = React.forwardRef<HTMLDivElement, HoverCardContentProps>(
+  ({ align = "center", sideOffset = 4, children, ...props }, ref) => (
+    <Paper
+      ref={ref}
+      elevation={3}
+      sx={{
+        width: 256,
+        padding: 2,
+        zIndex: 50,
+        ...props.sx,
+      }}
+      {...props}
+    >
+      {children}
+    </Paper>
+  )
+)
+HoverCardContent.displayName = "HoverCardContent"
 
 export { HoverCard, HoverCardTrigger, HoverCardContent }

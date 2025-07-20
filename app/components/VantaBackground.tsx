@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { Box } from "@mui/material"
 import HALO from "vanta/dist/vanta.halo.min"
 import * as THREE from "three"
 
@@ -32,9 +33,16 @@ const VantaBackground: React.FC<VantaBackgroundProps> = ({ children }) => {
   }, [vantaEffect])
 
   return (
-    <div ref={vantaRef} className="absolute inset-0 -z-10">
+    <Box 
+      ref={vantaRef} 
+      sx={{ 
+        position: 'absolute', 
+        inset: 0, 
+        zIndex: -1 
+      }}
+    >
       {children}
-    </div>
+    </Box>
   )
 }
 

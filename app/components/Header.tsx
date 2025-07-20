@@ -1,121 +1,205 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { Menu, X } from "lucide-react"
+import {
+  AppBar,
+  Box,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Paper,
+  Stack,
+  useTheme,
+  useMediaQuery,
+  Backdrop
+} from "@mui/material"
+import { Menu, Close } from "@mui/icons-material"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
+  const [mounted, setMounted] = useState(false)
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
   useEffect(() => {
-    const handleResize = () => {
-      const isMobileView = window.innerWidth < 768
-      setIsMobile(isMobileView)
-      if (!isMobileView) {
-        setIsMenuOpen(false)
-      }
-    }
-
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
+    setMounted(true)
   }, [])
 
   useEffect(() => {
-    const checkIfMobile = () => {
-      const isMobileView = window.innerWidth < 768
-      setIsMobile(isMobileView)
-      if (isMobileView) {
+    if (!isMobile) {
+      setIsMenuOpen(false)
+    }
+  }, [isMobile])
+
+  useEffect(() => {
+    if (mounted) {
+      if (isMobile) {
         document.body.style.overflow = isMenuOpen ? "hidden" : "visible"
       } else {
         document.body.style.overflow = "visible"
       }
     }
-    checkIfMobile()
-    window.addEventListener("resize", checkIfMobile)
-    return () => window.removeEventListener("resize", checkIfMobile)
-  }, [isMenuOpen])
+  }, [isMenuOpen, isMobile, mounted])
+
+  // Don't render anything until component is mounted to prevent hydration mismatch
+  if (!mounted) {
+    return null
+  }
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev)
   }
 
+  const navItems = [
+    { label: 'Home', href: '#home' },
+    { label: 'Projects', href: '#projects' },
+    { label: 'Skills', href: '#skills' },
+    { label: 'Experience', href: '#experience' },
+    { label: 'Education', href: '#education' },
+    { label: 'Contact', href: '#contact' },
+  ]
+
   return (
     <>
       {isMobile && (
-        <button
-          className="fixed top-4 left-4 z-50 p-2 bg-white/85 dark:bg-gray-800/80 backdrop-blur-sm rounded-xl"
+        <IconButton
           onClick={toggleMenu}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
+          sx={{
+            position: 'fixed',
+            top: 16,
+            left: 16,
+            zIndex: 1300,
+            backgroundColor: 'background.paper',
+            backdropFilter: 'blur(8px)',
+            '&:hover': {
+              backgroundColor: 'action.hover',
+            },
+          }}
         >
-          {isMenuOpen ? <X /> : <Menu />}
-        </button>
+          {isMenuOpen ? <Close /> : <Menu />}
+        </IconButton>
       )}
-      <header
-        className={`fixed z-40 ${
-          isMobile
-            ? `top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg transform ${
-                isMenuOpen ? "translate-x-0 transition-transform duration-300 ease-in-out" : "-translate-x-full"
-              }`
-            : "top-4 left-1/2 -translate-x-1/2 bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-full shadow-lg hover:bg-white/90 dark:hover:bg-gray-800/90 transition-all duration-300 ease-in-out"
-        }`}
+
+      {!isMobile && (
+        <AppBar
+          position="fixed"
+          elevation={0}
+          sx={{
+            top: 16,
+            left: '50%',
+            transform: 'translateX(-50%)',
+            width: 'auto',
+            backgroundColor: 'transparent',
+            zIndex: 1100,
+          }}
+        >
+          <Paper
+            elevation={3}
+            sx={{
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'light'
+                  ? 'rgba(255, 255, 255, 0.9)'
+                  : 'rgba(18, 18, 18, 0.8)',
+              backdropFilter: 'blur(12px)',
+              borderRadius: '24px',
+              px: 3,
+              py: 1.5,
+              transition: 'all 0.3s ease-in-out',
+              '&:hover': {
+                backgroundColor: (theme) =>
+                  theme.palette.mode === 'light'
+                    ? 'rgba(255, 255, 255, 0.95)'
+                    : 'rgba(18, 18, 18, 0.9)',
+              },
+            }}
+          >
+            <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" fontFamily="monospace">
+              {navItems.map((item) => (
+                <NavLink key={item.href} href={item.href}>
+                  {item.label}
+                </NavLink>
+              ))}
+            </Stack>
+          </Paper>
+        </AppBar>
+      )}
+
+      <Drawer
+        anchor="left"
+        open={isMenuOpen}
+        onClose={toggleMenu}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: 256,
+            backgroundColor: 'background.paper',
+          },
+        }}
       >
-        <nav className={`container mx-auto ${isMobile ? "px-4 py-6" : "px-6 py-3"}`}>
-          <div className="flex items-center justify-between md:justify-center">
-            <div
-              className={`${
-                isMobile
-                  ? `flex flex-col space-y-4 mt-12 items-start ${
-                      isMenuOpen ? "opacity-100" : "opacity-0"
-                    } transition-opacity duration-300 ease-in-out`
-                  : "hidden md:flex md:space-x-2"
-              }`}
-            >
-              <NavLink href="#home" onClick={isMobile ? toggleMenu : undefined}>
-                Home
-              </NavLink>
-              <NavLink href="#projects" onClick={isMobile ? toggleMenu : undefined}>
-                Projects
-              </NavLink>
-              <NavLink href="#skills" onClick={isMobile ? toggleMenu : undefined}>
-                Skills
-              </NavLink>
-              <NavLink href="#experience" onClick={isMobile ? toggleMenu : undefined}>
-                Experience
-              </NavLink>
-              <NavLink href="#education" onClick={isMobile ? toggleMenu : undefined}>
-                Education
-              </NavLink>
-              <NavLink href="#contact" onClick={isMobile ? toggleMenu : undefined}>
-                Contact
-              </NavLink>
-            </div>
-          </div>
-        </nav>
-      </header>
+        <Box sx={{ pt: 8 }}>
+          <List>
+            {navItems.map((item) => (
+              <ListItem key={item.href} disablePadding>
+                <ListItemButton
+                  onClick={() => {
+                    const target = document.querySelector(item.href)
+                    if (target) {
+                      target.scrollIntoView({ behavior: "smooth" })
+                    }
+                    toggleMenu()
+                  }}
+                >
+                  <ListItemText primary={item.label} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
+
       {isMobile && isMenuOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-30" onClick={toggleMenu} aria-hidden="true"></div>
+        <Backdrop
+          open={isMenuOpen}
+          onClick={toggleMenu}
+          sx={{ zIndex: 1200 }}
+        />
       )}
     </>
   )
 }
 
-const NavLink = ({ href, children, onClick }: { href: string; children: React.ReactNode; onClick?: () => void }) => (
-  <a
+const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+  <Box
+    component="a"
     href={href}
-    className="block text-sm text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white px-2 py-1 transition-all duration-300 ease-in-out"
-    onClick={(e) => {
+    onClick={(e: React.MouseEvent) => {
       e.preventDefault()
       const target = document.querySelector(href)
       if (target) {
         target.scrollIntoView({ behavior: "smooth" })
       }
-      if (onClick) onClick()
+    }}
+    sx={{
+      display: 'block',
+      fontSize: '0.875rem',
+      color: 'text.secondary',
+      textDecoration: 'none',
+      px: 1,
+      py: 0.5,
+      borderRadius: 1,
+      transition: 'all 0.3s ease-in-out',
+      '&:hover': {
+        color: 'text.primary',
+        backgroundColor: 'action.hover',
+      },
     }}
   >
     {children}
-  </a>
+  </Box>
 )
 
 export default Header
