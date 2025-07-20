@@ -1,4 +1,15 @@
-import { ExternalLink, GitlabIcon as GitHub } from "lucide-react"
+import {
+  Box,
+  Container,
+  Typography,
+  Card,
+  CardContent,
+  Chip,
+  Stack,
+  Link,
+  Fade
+} from "@mui/material"
+import { Launch, GitHub } from "@mui/icons-material"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
 
 const Projects = () => {
@@ -7,7 +18,7 @@ const Projects = () => {
       title: "Portfolio",
       description: "",
       image: "/images/project1.jpg",
-      technologies: ["Next.js", "TypesScript", "Node.js", ".NET", "Postgres", "Docker"],
+      technologies: ["Next.js", "TypeScript", "Node.js", ".NET", "Postgres", "Docker"],
       githubLink: "https://github.com/Avilash-B/avilash-portfolio",
       liveLink: ""
     },
@@ -23,7 +34,7 @@ const Projects = () => {
       title: "CRM for Non-Profit domain",
       description: "",
       image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET", "C#", "VB.NET", "SQL server", "MsTest", ],
+      technologies: [".NET", "C#", "VB.NET", "SQL server", "MsTest"],
       githubLink: "",
       liveLink: "https://www.blackbaud.com/products/blackbaud-crm"
     },
@@ -31,7 +42,7 @@ const Projects = () => {
       title: "Remote meter middleware",
       description: "",
       image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET Core", "C#", "Postgres", "Kafka", "Hangfire","Xunit"],
+      technologies: [".NET Core", "C#", "Postgres", "Kafka", "Hangfire", "Xunit"],
       githubLink: "",
       liveLink: "https://www.securemeters.com/"
     },
@@ -55,7 +66,7 @@ const Projects = () => {
       title: "Loyalty Rewards",
       description: "",
       image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET framework", "C#", "SQL server", "Windows Jobs","Nunit", "Backbone js"],
+      technologies: [".NET framework", "C#", "SQL server", "Windows Jobs", "Nunit", "Backbone js"],
       githubLink: "",
       liveLink: "https://www.cheapoair.com/profiles/#/my-rewards/redeem"
     }
@@ -64,79 +75,191 @@ const Projects = () => {
   const { ref, isVisible } = useScrollAnimation()
 
   return (
-    <section id="projects" className="py-20 bg-gray-100 dark:bg-gray-900">      
-    <div
-        ref={ref}
-        className={`transition-all duration-1000 ease-in-out ${
-          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
-        }`}>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Projects</h2>        
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div
-              key={project.title}
-              ref={ref}
-              className={`transition-all duration-1000 ease-in-out ${
-                isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
-              }`}
+    <Box
+      id="projects"
+      component="section"
+      sx={{
+        py: 10,
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'dark'
+            ? 'grey.900'
+            : 'grey.100'
+      }}
+    >
+      <Container maxWidth="lg">
+        <Fade in={isVisible} timeout={1000}>
+          <Box ref={ref}>
+            <Typography
+              variant="h3"
+              component="h2"
+              sx={{
+                fontWeight: 'bold',
+                mb: 4,
+                textAlign: 'center',
+                color: 'text.primary',
+                fontFamily: 'monospace',
+              }}
             >
-              <div
-                className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl"
-              >
-                {/* <Image
-                  src={project.image || "/placeholder.svg"}
-                  alt={project.title}
-                  width={300}
-                  height={200}
-                  className="w-full h-48 object-cover"
-                /> */}
-                <div className="p-6">
-                  <h3 className="text-xl font-semibold mb-2 text-gray-800 dark:text-white">{project.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">{project.description}</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {project.technologies.map((tech) => (
-                      <span
-                        key={tech}
-                        className="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-2 py-1 rounded text-sm"
+              Projects
+            </Typography>
+
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: {
+                  xs: '1fr',
+                  md: 'repeat(2, 1fr)',
+                  lg: 'repeat(3, 1fr)',
+                },
+                gap: 4,
+                justifyItems: 'center',
+              }}
+            >
+              {projects.map((project) => (
+                <Card
+                  key={project.title}
+                  elevation={3}
+                  sx={{
+                    height: 'auto',
+                    width: '100%',
+                    maxWidth: 400,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    backgroundColor: (theme) => 
+                      theme.palette.mode === 'dark' 
+                        ? 'rgba(18, 18, 18, 0.8)' 
+                        : 'rgba(255, 255, 255, 0.8)',
+                    backdropFilter: 'blur(8px)',
+                    borderRadius: 4,
+                    transition: 'all 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: 6,
+                      backgroundColor: (theme) => 
+                        theme.palette.mode === 'dark' 
+                          ? 'rgba(18, 18, 18, 0.9)' 
+                          : 'rgba(255, 255, 255, 0.9)',
+                    },
+                  }}
+                >
+                  <CardContent 
+                    sx={{ 
+                      p: 3, 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      height: '100%',
+                      justifyContent: 'space-between'
+                    }}
+                  >
+                    <Box>
+                      <Typography
+                        variant="h6"
+                        component="h3"
+                        sx={{ 
+                          fontWeight: 600, 
+                          mb: 1,
+                          minHeight: '3rem',
+                          display: '-webkit-box',
+                          WebkitLineClamp: 2,
+                          WebkitBoxOrient: 'vertical',
+                          overflow: 'hidden',
+                          textOverflow: 'ellipsis',
+                          fontFamily: 'monospace'
+                        }}
                       >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
-                  <div className={`flex ${project.liveLink ? "justify-between" : "justify-end"}`}>
-                    {project.liveLink && (
-                      <a
-                        href={project.liveLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center"
-                      >
-                        <ExternalLink className="w-4 h-4 mr-1" />
-                        Reference
-                      </a>
-                    )}
-                    {project.githubLink && (
-                      <a
-                        href={project.githubLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300 flex items-center"
-                      >
-                        <GitHub className="w-4 h-4 mr-1" />
-                        GitHub
-                      </a>
-                    )}                  
-                  </div>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        </div>
-        </div>
-      
-    </section>
+                        {project.title}
+                      </Typography>
+
+                      {project.description && (
+                        <Typography
+                          variant="body2"
+                          sx={{ 
+                            color: 'text.secondary', 
+                            mb: 2,
+                            minHeight: '2.5rem',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 2,
+                            WebkitBoxOrient: 'vertical',
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            fontFamily: 'monospace'
+                          }}
+                        >
+                          {project.description}
+                        </Typography>
+                      )}
+
+                      <Box sx={{ minHeight: '120px', mb: 2 }}>
+                        <Stack direction="row" flexWrap="wrap" gap={1}>
+                          {project.technologies.map((tech) => (
+                            <Chip
+                              key={tech}
+                              label={tech}
+                              size="small"
+                              variant="outlined"
+                              sx={{ fontSize: '0.75rem', fontFamily: 'monospace' }}
+                            />
+                          ))}
+                        </Stack>
+                      </Box>
+                    </Box>
+
+                    <Stack
+                      direction="row"
+                      justifyContent={project.liveLink ? "space-between" : "flex-end"}
+                      alignItems="center"
+                      sx={{ mt: 'auto' }}
+                    >
+                      {project.liveLink && (
+                        <Link
+                          href={project.liveLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            textDecoration: 'none',
+                            color: 'primary.main',
+                            fontFamily: 'monospace',
+                            '&:hover': {
+                              color: 'primary.dark',
+                            },
+                          }}
+                        >
+                          <Launch sx={{ fontSize: 16, mr: 0.5 }} />
+                          Reference
+                        </Link>
+                      )}
+
+                      {project.githubLink && (
+                        <Link
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            textDecoration: 'none',
+                            color: 'primary.main',
+                            fontFamily: 'monospace',
+                            '&:hover': {
+                              color: 'primary.dark',
+                            },
+                          }}
+                        >
+                          <GitHub sx={{ fontSize: 16, mr: 0.5 }} />
+                          GitHub
+                        </Link>
+                      )}
+                    </Stack>
+                  </CardContent>
+                </Card>
+              ))}
+            </Box>
+          </Box>
+        </Fade>
+      </Container>
+    </Box>
   )
 }
 

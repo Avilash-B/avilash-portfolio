@@ -1,67 +1,177 @@
-import { Briefcase } from "lucide-react"
-import { useScrollAnimation } from "../hooks/useScrollAnimation"
+import React, { useRef, useEffect, useState } from "react";
+import Container from "@mui/material/Container";
+import Box from "@mui/material/Box";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Link from "@mui/material/Link";
+import Grow from "@mui/material/Grow";
+import WorkIcon from "@mui/icons-material/Work"; // MUI icon for briefcase
+
+const experiences = [
+  {
+    company: "Ahead",
+    url: "https://www.ahead.com/",
+    position: "Technical Consultant",
+    duration: "May 2025 - Present",
+    description: "",
+  },
+  {
+    company: "Nagarro",
+    url: "https://www.nagarro.com/",
+    position: "Associate Staff Engineer",
+    duration: "Jan 2022 - May 2025",
+    description: "Built and maintained microservices in the non-profit domain, modernized SOAP APIs to REST, and handled testing, documentation, and cloud monitoring. Actively contributed to client discussions and agile planning.",
+  },
+  {
+    company: "Accolite Digital",
+    url: "https://www.bounteous.com/",
+    position: "Senior Software Engineer",
+    duration: "Nov 2020 - Jan 2022",
+    description: "Developed a greenfield solution for the energy sector and led CDF generation for remote meters. Mentored team members and ensured high test coverage using Xunit.",
+  },
+  {
+    company: "Fareportal",
+    url: "https://www.fareportal.com/",
+    position: "Software Engineer",
+    duration: "Jan 2019 - Nov 2020",
+    description: "Worked on scalable web APIs and data handling for a global travel platform. Migrated services to .NET Core and maintained quality with NUnit and Sonar in an Agile setup.",
+  },
+];
 
 const Experience = () => {
-  const experiences = [
-    {
-      company: "Nagarro",
-      position: "Associate Staff Engineer",
-      duration: "Jan 2022 - Present",
-      description: "",
-    },
-    {
-      company: "Accolite Digital",
-      position: "Senior Software Engineer",
-      duration: "Nov 2020 - Jan 2022",
-      description: "",
-    },
-    {
-      company: "Fareportal",
-      position: "Software Engineer",
-      duration: "Jan 2019 - Nov 2020",
-      description: "",
-    },
-  ]
+  // one state for each card's visibility
+  const [visible, setVisible] = useState(
+    Array(experiences.length).fill(false)
+  );
+  const cardRefs = useRef([]);
 
-  const { ref, isVisible } = useScrollAnimation()
+  // trigger the animation when card enters viewport
+  useEffect(() => {
+    const observer = new window.IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (
+            entry.isIntersecting &&
+            !visible[entry.target.dataset.index]
+          ) {
+            setVisible((prev) =>
+              prev.map((v, i) =>
+                i === Number(entry.target.dataset.index) ? true : v
+              )
+            );
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+    cardRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+    // cleanup
+    return () => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+    // eslint-disable-next-line
+  }, [cardRefs, visible]);
 
   return (
-    <section id="experience" className="py-20 bg-gray-100 dark:bg-gray-900">
-       <div
-        ref={ref}
-        className={`transition-all duration-1000 ease-in-out ${
-          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
-        }`}
-      >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-3xl font-bold mb-8 text-center text-gray-800 dark:text-white">Experience</h2>
-        <div className="space-y-8">        
-          {experiences.map((exp, index) => (    
-            <div
-            ref={ref}
-            className={`transition-all duration-1000 ease-in-out ${
-              isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
-            }`}
-          >        
-            <div key={index} className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
-              
-              <div className="flex items-center mb-4">
-                <Briefcase className="w-6 h-6 text-blue-500 mr-2" />
-                <h3 className="text-xl font-semibold text-gray-800 dark:text-white">{exp.position}</h3>
-              </div>
-              <p className="text-gray-600 dark:text-gray-400 mb-2">{exp.company}</p>
-              <p className="text-sm text-gray-500 dark:text-gray-500 mb-4">{exp.duration}</p>
-              <p className="text-gray-700 dark:text-gray-300">{exp.description}</p>
-            </div>
-            </div>
-            
+    <Box
+      component="section"
+      id="experience"
+      py={10}
+      sx={{
+        backgroundColor: (theme) =>
+          theme.palette.mode === 'dark'
+            ? 'grey.900'
+            : 'grey.100'
+      }}
+    >
+      <Container maxWidth="md">
+        <Typography
+          variant="h3"
+          align="center"
+          fontWeight="bold"
+          fontFamily="monospace"
+          gutterBottom
+          sx={{ color: 'text.primary' }}
+        >
+          Experience
+        </Typography>
+
+        <Box mt={4}>
+          {experiences.map((exp, idx) => (
+            <Grow
+              in={visible[idx]}
+              timeout={700 + idx * 220}
+              key={exp.company}
+            >
+              <Box
+                ref={(el) => {
+                  cardRefs.current[idx] = el
+                }}
+                data-index={idx}
+                mb={4}
+              >
+                <Card
+                  elevation={3}
+                  sx={{
+                    width:'auto',
+                    backgroundColor: 'background.paper',
+                    backdropFilter: 'blur(8px)',
+                    borderRadius: 4,
+                    transition: 'all 0.3s ease-in-out',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: 4,
+                    },
+                  }}
+                >
+                  <CardContent>
+                    <Box display="flex" alignItems="center" mb={1.5}>
+                      <WorkIcon color="primary" sx={{ mr: 1 }} />
+                      <Typography
+                        variant="h6"
+                        component="div"
+                        fontWeight="medium"
+                        fontFamily="monospace"
+                      >
+                        {exp.position}
+                      </Typography>
+                    </Box>
+                    <Typography variant="body1" mb={0.5}>
+                      <Link
+                        href={exp.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        color="primary"
+                        underline="hover"
+                        fontWeight="medium"
+                      >
+                        {exp.company}
+                      </Link>
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" mb={1} fontFamily="monospace">
+                      {exp.duration}
+                    </Typography>
+                    <Typography
+                      variant="body2"
+                      color="text.primary"
+                      sx={{ whiteSpace: "pre-line", fontFamily: 'monospace' }}
+                    >
+                      {exp.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Box>
+            </Grow>
           ))}
-        </div>
-        </div>
-      </div>
-    </section>
-  )
-}
+        </Box>
+      </Container>
+    </Box>
+  );
+};
 
-export default Experience
-
+export default Experience;

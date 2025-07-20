@@ -1,11 +1,25 @@
 "use client"
 
 import Image from "next/image"
-import { Linkedin, GitlabIcon as GitHub, Instagram, FileDown } from "lucide-react"
 import { useState, useEffect } from "react"
+import {
+  Box,
+  Container,
+  Paper,
+  Typography,
+  Stack,
+  IconButton,
+  Tooltip,
+  Fade
+} from "@mui/material"
+import {
+  LinkedIn,
+  GitHub,
+  Instagram,
+  FileDownload
+} from "@mui/icons-material"
 import VantaBackground from "./VantaBackground"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
-import { Card, CardContent } from "@/components/ui/card"
 import type React from "react"
 
 type HomeProps = {}
@@ -31,58 +45,134 @@ const Home: React.FC<HomeProps> = () => {
   }, [birthday])
 
   return (
-    <section id="home" className="min-h-screen pt-20 flex items-center justify-center relative overflow-hidden">
+    <Box
+      id="home"
+      component="section"
+      sx={{
+        minHeight: '100vh',
+        pt: 10,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'relative',
+        overflow: 'hidden',
+      }}
+    >
       <VantaBackground>
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-500/20 dark:from-blue-800/20 dark:to-purple-900/20" />
+        <Box
+          sx={{
+            position: 'absolute',
+            inset: 0,
+            background: (theme) => theme.palette.mode === 'dark'
+              ? 'linear-gradient(to bottom right, rgba(30, 58, 138, 0.2), rgba(88, 28, 135, 0.2))'
+              : 'linear-gradient(to bottom right, rgba(96, 165, 250, 0.2), rgba(168, 85, 247, 0.2))'
+          }}
+        />
       </VantaBackground>
 
-      <div
-        ref={ref}
-        className={`transition-all duration-1000 ease-in-out ${
-          isVisible ? "opacity-100 scale-100 translate-y-0" : "opacity-0 scale-95 translate-y-10"
-        }`}
-      >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center">
-            <Image
-              src="/images/avilash-home.jpg?height=200&width=200"
-              alt="Avilash"
-              width={210}
-              height={210}
-              className="rounded-full mx-auto mb-8 border-4 border-white dark:border-gray-800"
-            />
-            <Card className="max-w-lg mx-auto mb-8 bg-white/85 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl">
-              <CardContent className="p-6 font-mono text-left">
-                <div className="space-y-2">
-                  <div>
-                    <span className="text-purple-600 dark:text-purple-400">const</span>{" "}
-                    <span className="text-yellow-600 dark:text-yellow-400">name</span>:{" "}
-                    <span className="text-blue-600 dark:text-blue-400">string</span> ={" "}
-                    <span className="text-green-600 dark:text-green-400">"Avilash"</span>;
-                  </div>
-                  <div className="text-gray-500">// working as an Associate Staff Engineer, @Nagarro</div>
-                  <div>
-                    <span className="text-purple-600 dark:text-purple-400">const</span>{" "}
-                    <span className="text-yellow-600 dark:text-yellow-400">birthday</span>:{" "}
-                    <span className="text-blue-600 dark:text-blue-400">Date</span> ={" "}
-                    <span className="text-purple-600 dark:text-purple-400">new</span>{" "}
-                    <span className="text-blue-600 dark:text-blue-400">Date</span>(
-                    <span className="text-green-600 dark:text-green-400">'1995-08-27'</span>);
-                  </div>
-                  <div className="text-gray-500">// currently {age} years old.</div>
-                </div>
-              </CardContent>
-            </Card>
-            <div className="flex justify-center space-x-6 mb-8">
-              <SocialLink href="https://www.linkedin.com/in/avilashbharti" icon={<Linkedin />} label="LinkedIn" />
-              <SocialLink href="https://github.com/avilash-b" icon={<GitHub />} label="GitHub" />
-              <SocialLink href="https://www.instagram.com/avilash_bharti" icon={<Instagram />} label="Instagram" />
-              <SocialLink href="/docs/resume.pdf" icon={<FileDown />} label="Download Resume" download />
-          </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10 }}>
+        <Fade in={isVisible} timeout={1000}>
+          <Box ref={ref} sx={{ textAlign: 'center' }}>
+            <Box
+              sx={{
+                mb: 4,
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <Box
+                sx={{
+                  borderRadius: '50%',
+                  border: (theme) => `4px solid ${theme.palette.mode === 'dark' ? theme.palette.grey[800] : 'white'}`,
+                  overflow: 'hidden',
+                  transition: 'transform 0.3s ease-in-out',
+                  '&:hover': {
+                    transform: 'scale(1.05)',
+                  },
+                }}
+              >
+                <Image
+                  src="/images/avilash-home.jpg?height=200&width=200"
+                  alt="Avilash"
+                  width={210}
+                  height={210}
+                  style={{
+                    display: 'block',
+                    borderRadius: '50%',
+                  }}
+                />
+              </Box>
+            </Box>
+
+            <Paper
+              elevation={3}
+              sx={{
+                maxWidth: 512,
+                mx: 'auto',
+                mb: 4,
+                backgroundColor: 'hsl(50 50% 1% / 50%)',
+                backdropFilter: 'blur(8px)',
+                borderRadius: 4,
+                p: 3,
+              }}
+            >
+              <Box
+                component="pre"
+                sx={{
+                  fontFamily: 'monospace',
+                  textAlign: 'left',
+                  fontSize: '1rem',
+                  lineHeight: 1.5,
+                  margin: 0,
+                  whiteSpace: 'pre-wrap'
+                }}
+              >
+                <Box component="span" sx={{ color: 'purple.main' }}>const</Box>{" "}
+                <Box component="span" sx={{ color: 'warning.main' }}>name</Box>:{" "}
+                <Box component="span" sx={{ color: 'primary.main' }}>string</Box> ={" "}
+                <Box component="span" sx={{ color: 'success.main' }}>"Avilash"</Box>;
+                {"\n"}
+                <Box component="span" sx={{ color: 'text.secondary' }}>// working as Technical Consultant, @Ahead</Box>
+                {"\n"}
+                <Box component="span" sx={{ color: 'purple.main' }}>const</Box>{" "}
+                <Box component="span" sx={{ color: 'warning.main' }}>birthday</Box>:{" "}
+                <Box component="span" sx={{ color: 'primary.main' }}>Date</Box> ={" "}
+                <Box component="span" sx={{ color: 'purple.main' }}>new</Box>{" "}
+                <Box component="span" sx={{ color: 'primary.main' }}>Date</Box>(
+                <Box component="span" sx={{ color: 'success.main' }}>'1995-08-27'</Box>);
+                {"\n"}
+                <Box component="span" sx={{ color: 'text.secondary' }}>// currently {age} years old.</Box>
+              </Box>
+            </Paper>
+
+            <Stack direction="row" spacing={3} justifyContent="center" sx={{ mb: 4, fontFamily: 'monospace' }}>
+              <SocialLink
+                href="https://www.linkedin.com/in/avilashbharti"
+                icon={<LinkedIn />}
+                label="LinkedIn"
+              />
+              <SocialLink
+                href="https://github.com/avilash-b"
+                icon={<GitHub />}
+                label="GitHub"
+              />
+              <SocialLink
+                href="https://www.instagram.com/avilash_bharti"
+                icon={<Instagram />}
+                label="Instagram"
+              />
+              <SocialLink
+                href="/docs/resume.pdf"
+                icon={<FileDownload />}
+                label="Download Resume"
+                download
+              />
+            </Stack>
+          </Box>
+        </Fade>
+      </Container>
+    </Box>
   )
 }
 
@@ -97,28 +187,27 @@ const SocialLink = ({
   label: string
   download?: boolean
 }) => {
-  const [showLabel, setShowLabel] = useState(false)
-
   return (
-    <div className="relative group">
-      <a
+    <Tooltip title={label} arrow>
+      <IconButton
+        component="a"
         href={href}
         target={download ? "_self" : "_blank"}
         rel={download ? "" : "noopener noreferrer"}
         download={download}
-        className="text-white hover:text-gray-200 transition duration-300 ease-in-out group-hover:scale-125 inline-block transform"
+        sx={{
+          color: 'white',
+          transition: 'all 0.3s ease-in-out',
+          '&:hover': {
+            color: 'grey.300',
+            transform: 'scale(1.75)',
+          },
+        }}
         aria-label={label}
-        onMouseEnter={() => setShowLabel(true)}
-        onMouseLeave={() => setShowLabel(false)}
       >
         {icon}
-      </a>
-      {showLabel && (
-        <div className="absolute -bottom-10 left-1/2 transform -translate-x-1/2 bg-white dark:bg-gray-800 text-gray-800 dark:text-white text-xs py-1 px-2 rounded shadow-lg whitespace-nowrap">
-          {label}
-        </div>
-      )}
-    </div>
+      </IconButton>
+    </Tooltip>
   )
 }
 
