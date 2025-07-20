@@ -30,17 +30,18 @@ const educations = [
 
 const Education = () => {
   const [visible, setVisible] = useState(Array(educations.length).fill(false));
-  const cardRefs = useRef([]);
+  const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
   useEffect(() => {
     const observer = new window.IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const target = entry.target as HTMLElement;
-          if (entry.isIntersecting && !visible[target.dataset.index]) {
+          const index = target.dataset.index;
+          if (entry.isIntersecting && index !== undefined && !visible[Number(index)]) {
             setVisible((prev) =>
               prev.map((v, i) =>
-                i === Number(target.dataset.index) ? true : v
+                i === Number(index) ? true : v
               )
             );
           }
@@ -86,14 +87,16 @@ const Education = () => {
           {educations.map((edu, idx) => (
             <Grow in={visible[idx]} timeout={700 + idx * 220} key={idx}>
               <Box
-                ref={(el) => (cardRefs.current[idx] = el)}
+                ref={(el: HTMLElement | null) => {
+                  cardRefs.current[idx] = el
+                }}
                 data-index={idx}
                 mb={4}
               >
                 <Card
                   elevation={3}
                   sx={{
-                    width:'auto',
+                    width: 'auto',
                     backgroundColor: 'background.paper',
                     backdropFilter: 'blur(8px)',
                     borderRadius: 4,
