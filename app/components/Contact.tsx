@@ -7,7 +7,9 @@ import {
   Button,
   Paper,
   Stack,
-  Fade
+  Fade,
+  Snackbar,
+  Alert
 } from "@mui/material"
 import { Email, LocationOn } from "@mui/icons-material"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
@@ -17,6 +19,11 @@ const Contact = () => {
     name: "",
     email: "",
     message: "",
+  })
+  const [toast, setToast] = useState({
+    open: false,
+    message: "",
+    severity: "success" as "success" | "error"
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -40,12 +47,30 @@ const Contact = () => {
 
       if (response.ok) {
         setFormData({ name: "", email: "", message: "" })
+        setToast({
+          open: true,
+          message: "Message sent successfully! I'll get back to you soon.",
+          severity: "success"
+        })
       } else {
-        console.error("Form submission failed")
+        setToast({
+          open: true,
+          message: "Failed to send message. Please try again later.",
+          severity: "error"
+        })
       }
     } catch (error) {
       console.error("Error submitting form:", error)
+      setToast({
+        open: true,
+        message: "Network error. Please check your connection and try again.",
+        severity: "error"
+      })
     }
+  }
+
+  const handleCloseToast = () => {
+    setToast(prev => ({ ...prev, open: false }))
   }
 
   const { ref, isVisible } = useScrollAnimation()
@@ -205,6 +230,22 @@ const Contact = () => {
           </Box>
         </Fade>
       </Container>
+
+      <Snackbar
+        open={toast.open}
+        autoHideDuration={6000}
+        onClose={handleCloseToast}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert
+          onClose={handleCloseToast}
+          severity={toast.severity}
+          variant="filled"
+          sx={{ width: '100%', fontFamily: 'monospace' }}
+        >
+          {toast.message}
+        </Alert>
+      </Snackbar>
     </Box>
   )
 }
