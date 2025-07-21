@@ -15,7 +15,7 @@ import DarkModeToggle from './components/DarkModeToggle'
 // import { useTelemetry } from './hooks/useTelemetry'
 
 export default function Portfolio() {
-  const [darkMode, setDarkMode] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
   const scrollY = useScrollEffect();
   const scale = 1 + scrollY * 0.001; // Adjust the multiplier to control the zoom intensity
 
