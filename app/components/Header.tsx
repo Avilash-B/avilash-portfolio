@@ -101,10 +101,7 @@ const Header = () => {
           <Paper
             elevation={3}
             sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'light'
-                  ? 'rgba(255, 255, 255, 0.9)'
-                  : 'rgba(18, 18, 18, 0.8)',
+              backgroundColor: (theme) => theme.palette.mode === 'dark'?'hsl(50 50% 1% / 50%)':'background.paper',
               backdropFilter: 'blur(12px)',
               borderRadius: '24px',
               px: 3,
