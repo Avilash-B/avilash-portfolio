@@ -96,7 +96,7 @@ const Home: React.FC<HomeProps> = () => {
                   src="/images/avilash-home.jpg?height=200&width=200"
                   alt="Avilash"
                   width={210}
-                  height={210}
+                  height={220}
                   style={{
                     display: 'block',
                     borderRadius: '50%',
@@ -111,7 +111,7 @@ const Home: React.FC<HomeProps> = () => {
                 maxWidth: 512,
                 mx: 'auto',
                 mb: 4,
-                backgroundColor: 'hsl(50 50% 1% / 50%)',
+                backgroundColor: (theme) => theme.palette.mode === 'dark'?'hsl(50 50% 1% / 50%)':'background.paper',
                 backdropFilter: 'blur(8px)',
                 borderRadius: 4,
                 p: 3,
