@@ -1,0 +1,18 @@
+{
+  "name": "Avilash Bharti - Software Engineer Portfolio",
+  "short_name": "Avilash Bharti",
+  "description": "Portfolio website of Avilash Bharti, Software Engineer and .NET Developer",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "192x192",
+      "type": "image/ico"
+    }
+  ],
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "start_url": "/",
+  "scope": "/",
+  "orientation": "portrait-primary"
+}
