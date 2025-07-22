@@ -16,7 +16,7 @@ const educations = [
   },
   {
     degree: "Bachelor of Computer Application",
-    institution: "Maharaja Surajmal Institue, India",
+    institution: "Maharaja Surajmal Institute, India",
     duration: "2013 - 2016",
     description: "",
   },
