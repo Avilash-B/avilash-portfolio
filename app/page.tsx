@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { ThemeProvider, createTheme, CssBaseline, Box } from '@mui/material'
 import Header from './components/Header'
 import Home from './components/Home'
@@ -45,10 +45,38 @@ export default function Portfolio() {
 
   // useTelemetry();
 
+  // Add structured data for better SEO
+  useEffect(() => {
+    // Add breadcrumb structured data
+    const breadcrumbData = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://avilashbharti.in"
+        }
+      ]
+    }
+
+    const script = document.createElement('script')
+    script.type = 'application/ld+json'
+    script.text = JSON.stringify(breadcrumbData)
+    document.head.appendChild(script)
+
+    return () => {
+      document.head.removeChild(script)
+    }
+  }, [])
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Box
+        component="div"
+        role="main"
         sx={{
           minHeight: '100vh',
           display: 'flex',
