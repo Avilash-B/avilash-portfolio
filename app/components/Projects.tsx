@@ -15,17 +15,25 @@ import { useScrollAnimation } from "../hooks/useScrollAnimation"
 const Projects = () => {
   const projects = [
     {
+      title: "Patient-Drug Manager",
+      description: "",
+      image: "/images/project1.jpg",
+      technologies: [".NET 8", "C#", "Kafka", "React", "TypeScript", "Docker", "Postgres", "Mongo", "OpenSearch", "AWS" ],
+      githubLink: "",
+      liveLink: ""
+    },
+    {
       title: "Portfolio",
       description: "",
       image: "/images/project1.jpg",
-      technologies: ["Next.js", "TypeScript", "Node.js", ".NET", "Postgres", "Docker"],
+      technologies: ["Next.js", "TypeScript", "Node.js", ".NET 8", "C#", "Postgres", "Docker"],
       githubLink: "https://github.com/Avilash-B/avilash-portfolio",
       liveLink: ""
     },
     {
       title: "SKY API - Unified API solution",
       description: "",
-      image: "/placeholder.svg?height=200&width=300",
+      //image: "/placeholder.svg?height=200&width=300",
       technologies: [".NET 8", "C#", "Azure", "SQL server", "Xunit", "Angular"],
       githubLink: "",
       liveLink: "https://developer.blackbaud.com/skyapi/products/crm"
@@ -33,39 +41,39 @@ const Projects = () => {
     {
       title: "CRM for Non-Profit domain",
       description: "",
-      image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET", "C#", "VB.NET", "SQL server", "MsTest"],
+      //image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET", "C#", "VB.NET", "SQL server","XUnit", "MsTest", "Azure"],
       githubLink: "",
       liveLink: "https://www.blackbaud.com/products/blackbaud-crm"
     },
     {
       title: "Remote meter middleware",
       description: "",
-      image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET Core", "C#", "Postgres", "Kafka", "Hangfire", "Xunit"],
+      //image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET Core", "C#","Docker" ,"Postgres", "Kafka", "Hangfire", "Xunit"],
       githubLink: "",
       liveLink: "https://www.securemeters.com/"
     },
     {
       title: "CRM for OTA",
       description: "",
-      image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET Core", "C#", "Redis", "SQL server", "Nunit", "React"],
+      //image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET Core", "C#", "Redis", "SQL server", "RabbitMq", "Nunit", "React"],
       githubLink: "",
       liveLink: "https://www.cheapoair.com/profiles/#/my-account/my-details"
     },
     {
       title: "Abandon Cart tracker",
       description: "",
-      image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET core", "C#", "Mongo DB", "Nunit"],
+      //image: "/placeholder.svg?height=200&width=300",
+      technologies: [".NET core", "C#", "Mongo DB", "GTM", "Nunit"],
       githubLink: "",
       liveLink: "https://www.cheapoair.com/"
     },
     {
       title: "Loyalty Rewards",
       description: "",
-      image: "/placeholder.svg?height=200&width=300",
+      //image: "/placeholder.svg?height=200&width=300",
       technologies: [".NET framework", "C#", "SQL server", "Windows Jobs", "Nunit", "Backbone js"],
       githubLink: "",
       liveLink: "https://www.cheapoair.com/profiles/#/my-rewards/redeem"
