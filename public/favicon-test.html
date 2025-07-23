@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Test - Avilash Bharti</title>
+    
+    <!-- Favicon links (same as in layout.tsx) -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="msapplication-config" content="/browserconfig.xml" />
+    <meta name="theme-color" content="#1976d2" />
+</head>
+<body>
+    <h1>Favicon Test Page</h1>
+    <p>This page is for testing favicon display. Check the browser tab for the favicon.</p>
+    
+    <h2>Current Favicon Files Status:</h2>
+    <ul>
+        <li>✅ favicon.ico - Basic ICO file</li>
+        <li>✅ favicon.svg - Modern SVG favicon</li>
+        <li>❌ favicon-16x16.png - Need to generate</li>
+        <li>❌ favicon-32x32.png - Need to generate</li>
+        <li>❌ apple-touch-icon.png - Need to generate</li>
+        <li>❌ android-chrome-192x192.png - Need to generate</li>
+        <li>❌ android-chrome-512x512.png - Need to generate</li>
+    </ul>
+    
+    <h2>Quick Test:</h2>
+    <p>The SVG favicon should work in modern browsers. For full compatibility, generate the PNG files as described in FAVICON_GENERATION_GUIDE.md</p>
+    
+    <h2>Favicon Preview:</h2>
+    <div style="display: flex; gap: 20px; align-items: center; margin: 20px 0;">
+        <div>
+            <p>SVG (32x32):</p>
+            <img src="/favicon.svg" width="32" height="32" style="border: 1px solid #ccc;" alt="SVG Favicon">
+        </div>
+        <div>
+            <p>ICO:</p>
+            <img src="/favicon.ico" width="32" height="32" style="border: 1px solid #ccc;" alt="ICO Favicon">
+        </div>
+    </div>
+</body>
+</html>
