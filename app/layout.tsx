@@ -48,12 +48,12 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://avilashbharti.in',
-    title: 'Avilash Bharti | Software Engineer & .NET Developer Portfolio',
+    title: 'Avilash Bharti | Full Stack Software Engineer',
     description: 'Experienced Software Engineer and .NET Developer specializing in full-stack web development. Explore my projects, technical skills, and professional journey.',
     siteName: 'Avilash Bharti Portfolio',
     images: [
       {
-        url: '/images/og-image.jpg', // You'll need to create this image
+        url: '/images/avilash-share.jpg', // You'll need to create this image
         width: 1200,
         height: 630,
         alt: 'Avilash Bharti - Software Engineer Portfolio',
@@ -62,9 +62,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Avilash Bharti | Software Engineer & .NET Developer',
+    title: 'Avilash Bharti | Full Stack Software Engineer',
     description: 'Experienced Software Engineer and .NET Developer specializing in full-stack web development. View my portfolio and projects.',
-    images: ['/images/twitter-card.jpg'], // You'll need to create this image
+    images: ['/images/avilash-share.jpg'], // You'll need to create this image
     creator: '@avilashbharti', // Replace with your actual Twitter handle
   },
   alternates: {
@@ -93,7 +93,8 @@ export default function RootLayout({
     "sameAs": [
       "https://linkedin.com/in/avilashbharti", 
       "https://github.com/avilash-b",
-      "https://x.com/AviCorpse" 
+      "https://x.com/AviCorpse",
+      "https://www.instagram.com/avilash_bharti/"
     ],
     "knowsAbout": [
       "Software Engineering",
