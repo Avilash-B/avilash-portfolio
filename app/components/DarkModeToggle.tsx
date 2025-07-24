@@ -17,7 +17,7 @@ const DarkModeToggle: React.FC<DarkModeToggleProps> = ({ toggleDarkMode, isDarkM
       sx={{
         position: 'fixed',
         bottom: 16,
-        right: 20,
+        right: 26,
         zIndex: 1400,
         transition: 'all 0.3s ease-in-out',
         '&:hover': {
