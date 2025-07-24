@@ -22,7 +22,7 @@ const Footer = () => {
           </Typography>
           <Stack direction="row" spacing={2}>
             <Link 
-              href="#" 
+              href="https://coolify.avilashbharti.in/" 
               color="inherit" 
               underline="hover"
               sx={{ 
