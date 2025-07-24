@@ -36,8 +36,22 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
+    const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+    
+    if (!baseUrl) {
+      setToast({
+        open: true,
+        message: "Configuration error. Please contact the administrator.",
+        severity: "error"
+      })
+      return
+    }
+
+    const apiUrl = `${baseUrl}/anonymous/addContactMe`
+
     try {
-      const response = await fetch("https://api.avilashbharti.in/anonymous/addContactMe", {
+      const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -135,7 +149,9 @@ const Contact = () => {
                     fontFamily: 'monospace'
                   }}
                 >
-                  I'm always open to new opportunities and collaborations. Feel free to reach out!
+                  I'm always open to new opportunities and collaborations.
+                  <br />
+                  Feel free to reach out!
                 </Typography>
 
                 <Stack spacing={2}>

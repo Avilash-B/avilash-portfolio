@@ -47,7 +47,56 @@ const skillsData: Skill[] = [
 
 const Skills = () => {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null)
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
   const { ref, isVisible } = useScrollAnimation()
+
+  // Function to calculate transform based on position relative to hovered item
+  const getTransform = (currentIndex: number, hoveredIdx: number | null) => {
+    if (hoveredIdx === null || currentIndex === hoveredIdx) {
+      return 'scale(1) translate(0, 0)'
+    }
+
+    // Calculate grid position (assuming 6 columns on large screens)
+    const cols = 6
+    const hoveredRow = Math.floor(hoveredIdx / cols)
+    const hoveredCol = hoveredIdx % cols
+    const currentRow = Math.floor(currentIndex / cols)
+    const currentCol = currentIndex % cols
+
+    // Calculate distance and direction
+    const rowDiff = currentRow - hoveredRow
+    const colDiff = currentCol - hoveredCol
+
+    // Scale down non-hovered items
+    let scale = 0.85
+    let translateX = 0
+    let translateY = 0
+
+    // Push items away from hovered item
+    if (Math.abs(rowDiff) <= 1 && Math.abs(colDiff) <= 1) {
+      // Adjacent items - push further away
+      translateX = colDiff * 15
+      translateY = rowDiff * 15
+      scale = 0.8
+    } else {
+      // Distant items - subtle movement
+      translateX = colDiff * 5
+      translateY = rowDiff * 5
+      scale = 0.9
+    }
+
+    return `scale(${scale}) translate(${translateX}px, ${translateY}px)`
+  }
+
+  const handleMouseEnter = (skillName: string, index: number) => {
+    setHoveredSkill(skillName)
+    setHoveredIndex(index)
+  }
+
+  const handleMouseLeave = () => {
+    setHoveredSkill(null)
+    setHoveredIndex(null)
+  }
 
   return (
     <Box
@@ -89,12 +138,14 @@ const Skills = () => {
                 },
                 gap: 4,
                 justifyItems: 'center',
+                position: 'relative',
+                padding: '20px', // Extra padding to accommodate movement
               }}
             >
-              {skillsData.map((skill) => (
+              {skillsData.map((skill, index) => (
                 <Paper
                   key={skill.name}
-                  elevation={hoveredSkill === skill.name ? 6 : 2}
+                  elevation={hoveredSkill === skill.name ? 8 : 2}
                   sx={{
                     p: 2,
                     display: 'flex',
@@ -104,24 +155,63 @@ const Skills = () => {
                     minHeight: 120,
                     width: '100%',
                     maxWidth: 150,
-                    transition: 'all 0.3s ease-in-out',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     cursor: 'pointer',
-                    transform: hoveredSkill === skill.name ? 'scale(1.5)' : 'scale(1)',
+                    transform: hoveredSkill === skill.name
+                      ? 'scale(1.3) translate(0, -10px)'
+                      : getTransform(index, hoveredIndex),
+                    zIndex: hoveredSkill === skill.name ? 10 : 1,
+                    position: 'relative',
+                    backgroundColor: hoveredSkill === skill.name
+                      ? 'primary.main'
+                      : 'background.paper',
+                    color: hoveredSkill === skill.name
+                      ? 'primary.contrastText'
+                      : 'text.primary',
+                    boxShadow: hoveredSkill === skill.name
+                      ? '0 20px 40px rgba(0,0,0,0.3)'
+                      : undefined,
                     '&:hover': {
-                      backgroundColor: 'action.hover',
+                      backgroundColor: hoveredSkill === skill.name
+                        ? 'primary.dark'
+                        : 'action.hover',
                     },
+                    // Add a subtle glow effect for hovered item
+                    ...(hoveredSkill === skill.name && {
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: -2,
+                        left: -2,
+                        right: -2,
+                        bottom: -2,
+                        background: 'linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4)',
+                        borderRadius: 'inherit',
+                        zIndex: -1,
+                        filter: 'blur(6px)',
+                        opacity: 0.7,
+                        animation: 'pulse 2s infinite',
+                      },
+                    }),
                   }}
-                  onMouseEnter={() => setHoveredSkill(skill.name)}
-                  onMouseLeave={() => setHoveredSkill(null)}
+                  onMouseEnter={() => handleMouseEnter(skill.name, index)}
+                  onMouseLeave={handleMouseLeave}
                 >
                   <Box
                     sx={{
-                      fontSize: '3rem',
+                      fontSize: hoveredSkill === skill.name ? '4rem' : '3rem',
                       mb: 1,
-                      transition: 'all 0.1s ease-in-out',
-                      transform: hoveredSkill === skill.name ? 'scale(1.5)' : 'scale(1)',
-                      color: 'primary.main',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      color: hoveredSkill === skill.name
+                        ? 'inherit'
+                        : 'primary.main',
                       fontFamily: 'monospace',
+                      filter: hoveredSkill === skill.name
+                        ? 'drop-shadow(0 4px 8px rgba(0,0,0,0.3))'
+                        : 'none',
+                      transform: hoveredSkill === skill.name
+                        ? 'rotate(5deg)'
+                        : 'rotate(0deg)',
                     }}
                   >
                     {skill.icon}
@@ -130,9 +220,14 @@ const Skills = () => {
                     variant="body2"
                     sx={{
                       textAlign: 'center',
-                      color: 'text.primary',
-                      fontWeight: 500,
-                      fontFamily: 'monospace'
+                      color: 'inherit',
+                      fontWeight: hoveredSkill === skill.name ? 600 : 500,
+                      fontFamily: 'monospace',
+                      fontSize: hoveredSkill === skill.name ? '0.9rem' : '0.875rem',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      textShadow: hoveredSkill === skill.name
+                        ? '0 2px 4px rgba(0,0,0,0.3)'
+                        : 'none',
                     }}
                   >
                     {skill.name}
@@ -140,6 +235,20 @@ const Skills = () => {
                 </Paper>
               ))}
             </Box>
+
+            {/* Add keyframes for pulse animation */}
+            <style jsx>{`
+              @keyframes pulse {
+                0%, 100% {
+                  opacity: 0.7;
+                  transform: scale(1);
+                }
+                50% {
+                  opacity: 1;
+                  transform: scale(1.05);
+                }
+              }
+            `}</style>
           </Box>
         </Fade>
       </Container>
