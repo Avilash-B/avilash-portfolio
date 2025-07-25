@@ -10,20 +10,20 @@ interface VantaBackgroundProps {
 }
 
 const VantaBackground: React.FC<VantaBackgroundProps> = ({ children }) => {
-  const [vantaEffect, setVantaEffect] = useState<any>(null)
+  const [vantaEffect, setVantaEffect] = useState<ReturnType<typeof HALO> | null>(null)
   const vantaRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     if (!vantaEffect) {
       setVantaEffect(
         HALO({
-            el: vantaRef.current,
-            THREE: THREE,
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.0,
-            minWidth: 200.0,
+          el: vantaRef.current,
+          THREE: THREE,
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.0,
+          minWidth: 200.0,
         }),
       )
     }
@@ -33,12 +33,12 @@ const VantaBackground: React.FC<VantaBackgroundProps> = ({ children }) => {
   }, [vantaEffect])
 
   return (
-    <Box 
-      ref={vantaRef} 
-      sx={{ 
-        position: 'absolute', 
-        inset: 0, 
-        zIndex: -1 
+    <Box
+      ref={vantaRef}
+      sx={{
+        position: 'absolute',
+        inset: 0,
+        zIndex: -1
       }}
     >
       {children}
