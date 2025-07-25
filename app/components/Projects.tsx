@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react'
 import {
   Box,
   Container,
@@ -7,12 +8,16 @@ import {
   Chip,
   Stack,
   Link,
-  Fade
+  Fade,
+  Slide
 } from "@mui/material"
 import { Launch, GitHub } from "@mui/icons-material"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
 
 const Projects = () => {
+  const [visibleCards, setVisibleCards] = useState<boolean[]>([])
+  const cardRefs = useRef<(HTMLElement | null)[]>([])
+
   const projects = [
     {
       title: "Patient-Drug Manager",
@@ -31,10 +36,10 @@ const Projects = () => {
       liveLink: ""
     },
     {
-      title: "SKY API - Unified API solution",
+      title: "SKY API",
       description: "",
       //image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET 8", "C#", "Azure", "SQL server", "Xunit", "Angular"],
+      technologies: [".NET 8", "C#", "Azure", "Cosmos",  "Xunit", "Angular", "SQL server",],
       githubLink: "",
       liveLink: "https://developer.blackbaud.com/skyapi/products/crm"
     },
@@ -50,7 +55,7 @@ const Projects = () => {
       title: "Remote meter middleware",
       description: "",
       //image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET Core", "C#","Docker" ,"Postgres", "Kafka", "Hangfire", "Xunit"],
+      technologies: [".NET Core 3.1", "C#","Docker" ,"Postgres", "Kafka", "Hangfire", "Xunit"],
       githubLink: "",
       liveLink: "https://www.securemeters.com/"
     },
@@ -58,7 +63,7 @@ const Projects = () => {
       title: "CRM for OTA",
       description: "",
       //image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET Core", "C#", "Redis", "SQL server", "RabbitMq", "Nunit", "React"],
+      technologies: [".NET Core 2.2", "C#", "Redis", "SQL server", "RabbitMq", "Nunit", "React"],
       githubLink: "",
       liveLink: "https://www.cheapoair.com/profiles/#/my-account/my-details"
     },
@@ -66,7 +71,7 @@ const Projects = () => {
       title: "Abandon Cart tracker",
       description: "",
       //image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET core", "C#", "Mongo DB", "GTM", "Nunit"],
+      technologies: [".NET core 2.2", "C#", "Mongo DB", "GTM", "Nunit"],
       githubLink: "",
       liveLink: "https://www.cheapoair.com/"
     },
@@ -81,6 +86,45 @@ const Projects = () => {
   ]
 
   const { ref, isVisible } = useScrollAnimation()
+
+  useEffect(() => {
+    setVisibleCards(new Array(projects.length).fill(false))
+  }, [projects.length])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = parseInt(entry.target.getAttribute('data-index') || '0')
+          if (entry.isIntersecting) {
+            setVisibleCards(prev => {
+              const newVisible = [...prev]
+              if (!newVisible[index]) {
+                newVisible[index] = true
+                return newVisible
+              }
+              return prev
+            })
+          }
+        })
+      },
+      { threshold: 0.1, rootMargin: '50px' }
+    )
+
+    // Use a timeout to ensure refs are set
+    const timeoutId = setTimeout(() => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.observe(ref)
+      })
+    }, 100)
+
+    return () => {
+      clearTimeout(timeoutId)
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref)
+      })
+    }
+  }, [])
 
   return (
     <Box
@@ -123,33 +167,49 @@ const Projects = () => {
                 justifyItems: 'center',
               }}
             >
-              {projects.map((project) => (
-                <Card
+              {projects.map((project, index) => (
+                <Box
                   key={project.title}
-                  elevation={3}
                   sx={{
-                    height: 'auto',
-                    width: '100%',
-                    maxWidth: 400,
-                    display: 'flex',
-                    flexDirection: 'column',
-                    backgroundColor: (theme) => 
-                      theme.palette.mode === 'dark' 
-                        ? 'rgba(18, 18, 18, 0.8)' 
-                        : 'rgba(255, 255, 255, 0.8)',
-                    backdropFilter: 'blur(8px)',
-                    borderRadius: 4,
-                    transition: 'all 0.3s ease-in-out',
-                    '&:hover': {
-                      transform: 'translateY(-4px)',
-                      boxShadow: 6,
-                      backgroundColor: (theme) => 
-                        theme.palette.mode === 'dark' 
-                          ? 'rgba(18, 18, 18, 0.9)' 
-                          : 'rgba(255, 255, 255, 0.9)',
-                    },
+                    transform: visibleCards[index] 
+                      ? 'translateX(0)' 
+                      : {
+                          xs: `translateY(${index % 2 === 0 ? '50px' : '-50px'})`,
+                          sm: `translateX(${index % 2 === 0 ? '-100%' : '100%'})`
+                        },
+                    opacity: visibleCards[index] ? 1 : 0,
+                    transition: `all ${300 + index * 100}ms ease-in-out`,
                   }}
                 >
+                  <Card
+                    ref={(el) => {
+                      cardRefs.current[index] = el
+                    }}
+                    data-index={index}
+                    elevation={3}
+                    sx={{
+                      height: 'auto',
+                      width: '100%',
+                      maxWidth: 400,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      backgroundColor: (theme) => 
+                        theme.palette.mode === 'dark' 
+                          ? 'rgba(18, 18, 18, 0.8)' 
+                          : 'rgba(255, 255, 255, 0.8)',
+                      backdropFilter: 'blur(8px)',
+                      borderRadius: 4,
+                      transition: 'all 0.3s ease-in-out',
+                      '&:hover': {
+                        transform: 'translateY(-4px)',
+                        boxShadow: 6,
+                        backgroundColor: (theme) => 
+                          theme.palette.mode === 'dark' 
+                            ? 'rgba(18, 18, 18, 0.9)' 
+                            : 'rgba(255, 255, 255, 0.9)',
+                      },
+                    }}
+                  >
                   <CardContent 
                     sx={{ 
                       p: 3, 
@@ -262,6 +322,7 @@ const Projects = () => {
                     </Stack>
                   </CardContent>
                 </Card>
+                </Box>
               ))}
             </Box>
           </Box>

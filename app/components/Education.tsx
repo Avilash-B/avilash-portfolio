@@ -4,7 +4,6 @@ import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
-import Grow from "@mui/material/Grow";
 import SchoolIcon from "@mui/icons-material/School";
 
 const educations = [
@@ -37,28 +36,30 @@ const Education = () => {
       (entries) => {
         entries.forEach((entry) => {
           const target = entry.target as HTMLElement;
-          const index = target.dataset.index;
-          if (entry.isIntersecting && index !== undefined && !visible[Number(index)]) {
+          const index = Number(target.dataset.index);
+          if (entry.isIntersecting && !visible[index]) {
             setVisible((prev) =>
-              prev.map((v, i) =>
-                i === Number(index) ? true : v
-              )
+              prev.map((v, i) => (i === index ? true : v))
             );
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: '50px' }
     );
-    cardRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
+
+    const timeoutId = setTimeout(() => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.observe(ref);
+      });
+    }, 100);
+
     return () => {
+      clearTimeout(timeoutId);
       cardRefs.current.forEach((ref) => {
         if (ref) observer.unobserve(ref);
       });
     };
-    // eslint-disable-next-line
-  }, [cardRefs, visible]);
+  }, []);
 
   return (
     <Box
@@ -85,63 +86,72 @@ const Education = () => {
         </Typography>
         <Box mt={4}>
           {educations.map((edu, idx) => (
-            <Grow in={visible[idx]} timeout={700 + idx * 220} key={idx}>
-              <Box
-                ref={(el: HTMLElement | null) => {
-                  cardRefs.current[idx] = el
-                }}
-                data-index={idx}
-                mb={4}
-              >
-                <Card
-                  elevation={3}
-                  sx={{
-                    width: 'auto',
-                    backgroundColor: 'background.paper',
-                    backdropFilter: 'blur(8px)',
-                    borderRadius: 4,
-                    transition: 'all 0.3s ease-in-out',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: 4,
+            <Box
+              key={idx}
+              ref={(el: HTMLElement | null) => {
+                cardRefs.current[idx] = el
+              }}
+              data-index={idx}
+              mb={4}
+              sx={{
+                transform: visible[idx]
+                  ? 'translateX(0)'
+                  : {
+                      xs: `translateY(${idx % 2 === 0 ? '50px' : '-50px'})`,
+                      sm: `translateX(${idx % 2 === 0 ? '-100%' : '100%'})`
                     },
-                  }}
-                >
-                  <CardContent>
-                    <Box display="flex" alignItems="center" mb={1.5}>
-                      <SchoolIcon color="primary" sx={{ mr: 1 }} />
-                      <Typography
-                        variant="h6"
-                        component="div"
-                        fontWeight="medium"
-                        color="text.primary"
-                        fontFamily="monospace"
-                      >
-                        {edu.degree}
-                      </Typography>
-                    </Box>
+                opacity: visible[idx] ? 1 : 0,
+                transition: `all ${350 + idx * 110}ms ease-in-out`,
+              }}
+            >
+              <Card
+                elevation={3}
+                sx={{
+                  width: 'auto',
+                  backgroundColor: 'background.paper',
+                  backdropFilter: 'blur(8px)',
+                  borderRadius: 4,
+                  transition: 'all 0.3s ease-in-out',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: 4,
+                  },
+                }}
+              >
+                <CardContent>
+                  <Box display="flex" alignItems="center" mb={1.5}>
+                    <SchoolIcon color="primary" sx={{ mr: 1 }} />
                     <Typography
-                      variant="body1"
-                      mb={0.5}
-                      color="text.secondary"
-                    >
-                      {edu.institution}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      mb={1}
+                      variant="h6"
+                      component="div"
+                      fontWeight="medium"
+                      color="text.primary"
                       fontFamily="monospace"
                     >
-                      {edu.duration}
+                      {edu.degree}
                     </Typography>
-                    <Typography variant="body2" color="text.primary">
-                      {edu.description}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Box>
-            </Grow>
+                  </Box>
+                  <Typography
+                    variant="body1"
+                    mb={0.5}
+                    color="text.secondary"
+                  >
+                    {edu.institution}
+                  </Typography>
+                  <Typography
+                    variant="body2"
+                    color="text.secondary"
+                    mb={1}
+                    fontFamily="monospace"
+                  >
+                    {edu.duration}
+                  </Typography>
+                  <Typography variant="body2" color="text.primary">
+                    {edu.description}
+                  </Typography>
+                </CardContent>
+              </Card>
+            </Box>
           ))}
         </Box>
       </Container>

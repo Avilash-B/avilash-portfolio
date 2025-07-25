@@ -5,8 +5,8 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import Link from "@mui/material/Link";
-import Grow from "@mui/material/Grow";
-import WorkIcon from "@mui/icons-material/Work"; // MUI icon for briefcase
+import Slide from "@mui/material/Slide";
+import WorkIcon from "@mui/icons-material/Work";
 
 const experiences = [
   {
@@ -51,31 +51,30 @@ const Experience = () => {
     const observer = new window.IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (
-            entry.isIntersecting &&
-            !visible[entry.target.dataset.index]
-          ) {
+          const index = Number(entry.target.dataset.index)
+          if (entry.isIntersecting && !visible[index]) {
             setVisible((prev) =>
-              prev.map((v, i) =>
-                i === Number(entry.target.dataset.index) ? true : v
-              )
+              prev.map((v, i) => (i === index ? true : v))
             );
           }
         });
       },
-      { threshold: 0.2 }
+      { threshold: 0.1, rootMargin: '50px' }
     );
-    cardRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-    // cleanup
+    
+    const timeoutId = setTimeout(() => {
+      cardRefs.current.forEach((ref) => {
+        if (ref) observer.observe(ref);
+      });
+    }, 100);
+    
     return () => {
+      clearTimeout(timeoutId);
       cardRefs.current.forEach((ref) => {
         if (ref) observer.unobserve(ref);
       });
     };
-    // eslint-disable-next-line
-  }, [cardRefs, visible]);
+  }, []);
 
   return (
     <Box
@@ -103,18 +102,24 @@ const Experience = () => {
 
         <Box mt={4}>
           {experiences.map((exp, idx) => (
-            <Grow
-              in={visible[idx]}
-              timeout={700 + idx * 220}
+            <Box
               key={exp.company}
+              ref={(el) => {
+                cardRefs.current[idx] = el
+              }}
+              data-index={idx}
+              mb={4}
+              sx={{
+                transform: visible[idx] 
+                  ? 'translateX(0)' 
+                  : {
+                      xs: `translateY(${idx % 2 === 0 ? '50px' : '-50px'})`,
+                      sm: `translateX(${idx % 2 === 0 ? '-100%' : '100%'})`
+                    },
+                opacity: visible[idx] ? 1 : 0,
+                transition: `all ${350 + idx * 110}ms ease-in-out`,
+              }}
             >
-              <Box
-                ref={(el) => {
-                  cardRefs.current[idx] = el
-                }}
-                data-index={idx}
-                mb={4}
-              >
                 <Card
                   elevation={3}
                   sx={{
@@ -165,8 +170,7 @@ const Experience = () => {
                     </Typography>
                   </CardContent>
                 </Card>
-              </Box>
-            </Grow>
+            </Box>
           ))}
         </Box>
       </Container>
