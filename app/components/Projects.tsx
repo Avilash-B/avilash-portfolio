@@ -71,7 +71,7 @@ const Projects = () => {
       title: "Abandon Cart tracker",
       description: "",
       //image: "/placeholder.svg?height=200&width=300",
-      technologies: [".NET core 2.2", "C#", "Mongo DB", "GTM", "Nunit"],
+      technologies: [".NET core 2.2", "C#", "Mongo DB", "GTM", "JavaScript","Nunit"],
       githubLink: "",
       liveLink: "https://www.cheapoair.com/"
     },

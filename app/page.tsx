@@ -87,7 +87,6 @@ export default function Portfolio() {
         <Box
           sx={{
             height: '100vh',
-            overflowY: 'auto',
           }}
         >
           <Header />
