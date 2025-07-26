@@ -18,6 +18,7 @@ A modern, responsive portfolio website built with Next.js, TypeScript, and Mater
 - **UI Library:** Material-UI (MUI)
 - **Styling:** MUI System + Custom CSS
 - **Deployment:** Vercel/Netlify ready
+- **MyDeployment:** Self hosted linux server with coolify
 
 ## 📦 Installation
 
@@ -52,28 +53,15 @@ Create a `.env.local` file in the root directory with the following variables:
 
 ```env
 # API Base URL
-NEXT_PUBLIC_API_BASE_URL=https://api.avilashbharti.in
+NEXT_PUBLIC_API_BASE_URL
 ```
 
 ### Required Variables:
-- `NEXT_PUBLIC_API_BASE_URL` - Base URL for the API (contact form endpoint will be `/anonymous/addContactMe`)
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically
-
-### Netlify
-1. Build the project: `npm run build`
-2. Deploy the `out` folder to Netlify
-3. Set environment variables in Netlify dashboard
+- `NEXT_PUBLIC_API_BASE_URL` - Base URL for the API 
 
 ### Environment Variables for Production:
 Set these in your deployment platform:
-- `NEXT_PUBLIC_API_BASE_URL=https://api.avilashbharti.in`
+- `NEXT_PUBLIC_API_BASE_URL=`
 
 ## 📁 Project Structure
 
