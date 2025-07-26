@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 
-const TELEMETRY_ENDPOINT = '/api/telemetry'; // You'll need to create this endpoint
+const baseUrl = process.env.NEXT_PUBLIC_API_BASE_URL
+const TELEMETRY_ENDPOINT = `${baseUrl}/anonymous/source`; // You'll need to create this endpoint
 const TELEMETRY_SENT_KEY = 'source_key';
 
 export const useTelemetry = () => {

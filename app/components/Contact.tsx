@@ -149,8 +149,7 @@ const Contact = () => {
                     fontFamily: 'monospace'
                   }}
                 >
-                  I'm always open to new opportunities and collaborations.
-                  <br />
+                  I'm always open to new opportunities and collaborations. 
                   Feel free to reach out!
                 </Typography>
 

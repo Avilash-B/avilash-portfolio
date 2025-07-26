@@ -12,7 +12,7 @@ import Contact from './components/Contact'
 import Footer from './components/Footer'
 import { useScrollEffect } from './hooks/useScrollEffect'
 import DarkModeToggle from './components/DarkModeToggle'
-// import { useTelemetry } from './hooks/useTelemetry'
+import { useTelemetry } from './hooks/useTelemetry'
 
 export default function Portfolio() {
   const [darkMode, setDarkMode] = useState(false)
@@ -43,7 +43,7 @@ export default function Portfolio() {
     [darkMode]
   )
 
-  // useTelemetry();
+  useTelemetry();
 
   // Add structured data for better SEO
   useEffect(() => {
@@ -87,7 +87,6 @@ export default function Portfolio() {
         <Box
           sx={{
             height: '100vh',
-            overflowY: 'auto',
           }}
         >
           <Header />

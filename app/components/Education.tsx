@@ -31,20 +31,50 @@ const Education = () => {
   const [visible, setVisible] = useState(Array(educations.length).fill(false));
   const cardRefs = useRef<(HTMLElement | null)[]>([]);
 
+  // Fallback for iPad and tablet views where intersection observer fails
   useEffect(() => {
+    const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+
+    if (isTablet) {
+      // For tablets, show cards immediately with a slight delay for staggered effect
+      educations.forEach((_, index) => {
+        setTimeout(() => {
+          setVisible(prev => {
+            const newVisible = [...prev];
+            newVisible[index] = true;
+            return newVisible;
+          });
+        }, index * 200); // Staggered appearance
+      });
+    }
+  }, []);
+
+  useEffect(() => {
+    const isTablet = window.innerWidth >= 768 && window.innerWidth <= 1024;
+
+    // Skip intersection observer for tablets since it's unreliable
+    if (isTablet) return;
+
     const observer = new window.IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           const target = entry.target as HTMLElement;
           const index = Number(target.dataset.index);
-          if (entry.isIntersecting && !visible[index]) {
-            setVisible((prev) =>
-              prev.map((v, i) => (i === index ? true : v))
-            );
+          if (entry.isIntersecting) {
+            setVisible((prev) => {
+              const newVisible = [...prev];
+              if (!newVisible[index]) {
+                newVisible[index] = true;
+              }
+              return newVisible;
+            });
           }
         });
       },
-      { threshold: 0.1, rootMargin: '50px' }
+      {
+        threshold: 0.1,
+        rootMargin: '50px'
+      }
     );
 
     const timeoutId = setTimeout(() => {
@@ -97,9 +127,9 @@ const Education = () => {
                 transform: visible[idx]
                   ? 'translateX(0)'
                   : {
-                      xs: `translateY(${idx % 2 === 0 ? '50px' : '-50px'})`,
-                      sm: `translateX(${idx % 2 === 0 ? '-100%' : '100%'})`
-                    },
+                    xs: `translateY(${idx % 2 === 0 ? '50px' : '-50px'})`,
+                    sm: `translateX(${idx % 2 === 0 ? '-100%' : '100%'})`
+                  },
                 opacity: visible[idx] ? 1 : 0,
                 transition: `all ${350 + idx * 110}ms ease-in-out`,
               }}
