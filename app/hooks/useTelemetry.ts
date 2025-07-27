@@ -25,6 +25,8 @@ export const useTelemetry = () => {
         break;
         case "re" : source = 3;
         break;
+        case "gir" : source = 4;
+        break;
         default: source = -1
       }
 
