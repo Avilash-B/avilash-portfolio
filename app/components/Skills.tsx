@@ -195,13 +195,7 @@ const Skills = () => {
     <Box
       id="skills"
       component="section"
-      sx={{
-        py: 10,
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'dark'
-            ? 'grey.900'
-            : 'grey.100'
-      }}
+      sx={{ py: 10, minHeight: '100vh' }}
     >
       <Container maxWidth="lg">
         <Fade in={isVisible} timeout={1000}>

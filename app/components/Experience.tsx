@@ -112,12 +112,7 @@ const Experience = () => {
       component="section"
       id="experience"
       py={10}
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'dark'
-            ? 'grey.900'
-            : 'grey.100'
-      }}
+      sx={{ minHeight: '100vh' }}
     >
       <Container maxWidth="md">
         <Typography
