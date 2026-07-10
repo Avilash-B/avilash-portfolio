@@ -36,9 +36,9 @@ const VantaBackground: React.FC<VantaBackgroundProps> = ({ children }) => {
     <Box
       ref={vantaRef}
       sx={{
-        position: 'absolute',
+        position: 'fixed',
         inset: 0,
-        zIndex: -1
+        zIndex: 0,
       }}
     >
       {children}

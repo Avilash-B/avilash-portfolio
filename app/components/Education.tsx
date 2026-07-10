@@ -96,12 +96,7 @@ const Education = () => {
       component="section"
       id="education"
       py={10}
-      sx={{
-        backgroundColor: (theme) =>
-          theme.palette.mode === 'dark'
-            ? 'grey.900'
-            : 'grey.100'
-      }}
+      sx={{ minHeight: '100vh' }}
     >
       <Container maxWidth="md">
         <Typography

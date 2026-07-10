@@ -10,20 +10,15 @@ import Experience from './components/Experience'
 import Education from './components/Education'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import { useScrollEffect } from './hooks/useScrollEffect'
 import DarkModeToggle from './components/DarkModeToggle'
+import VantaBackground from './components/VantaBackground'
 import { useTelemetry } from './hooks/useTelemetry'
 
 export default function Portfolio() {
-  const [darkMode, setDarkMode] = useState(false)
-  const scrollY = useScrollEffect();
-  const scale = 1 + scrollY * 0.001; // Adjust the multiplier to control the zoom intensity
+  const [darkMode, setDarkMode] = useState(true)
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode)
-  }
+  const toggleDarkMode = () => setDarkMode(!darkMode)
 
-  // Create MUI theme based on dark mode state
   const theme = useMemo(
     () =>
       createTheme({
@@ -45,70 +40,60 @@ export default function Portfolio() {
 
   useTelemetry();
 
-  // Add structured data for better SEO
   useEffect(() => {
-    // Add breadcrumb structured data
     const breadcrumbData = {
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://avilashbharti.in"
-        }
-      ]
+      "itemListElement": [{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://avilashbharti.in" }]
     }
-
     const script = document.createElement('script')
     script.type = 'application/ld+json'
     script.text = JSON.stringify(breadcrumbData)
     document.head.appendChild(script)
-
-    return () => {
-      document.head.removeChild(script)
-    }
+    return () => { document.head.removeChild(script) }
   }, [])
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Box
-        component="div"
-        role="main"
-        sx={{
-          minHeight: '100vh',
-          display: 'flex',
-          flexDirection: 'column',
-          overflowX: 'hidden',
-        }}
-      >
+
+      {/* Fixed Vanta background — rendered once, sits behind everything */}
+      <VantaBackground>
         <Box
           sx={{
-            height: '100vh',
+            position: 'absolute',
+            inset: 0,
+            background: (theme) =>
+              theme.palette.mode === 'dark'
+                ? 'linear-gradient(to bottom right, rgba(30,58,138,0.2), rgba(88,28,135,0.2))'
+                : 'linear-gradient(to bottom right, rgba(96,165,250,0.2), rgba(168,85,247,0.2))',
           }}
-        >
-          <Header />
-          <Box
-            component="main"
-            sx={{
-              flexGrow: 1,
-              transition: 'all 0.3s ease-in-out',
-              transform: `scale(${scale})`,
-            }}
-          >
-            <Home />
-            <Projects />
-            <Skills />
-            <Experience />
-            <Education />
-            <Contact />
+        />
+      </VantaBackground>
+
+      {/* Scroll-snap container — sections glide over the fixed Vanta */}
+      <Box
+        sx={{
+          position: 'relative',
+          zIndex: 1,
+          height: '100vh',
+          overflowY: 'scroll',
+          '&::-webkit-scrollbar': { display: 'none' },
+          scrollbarWidth: 'none',
+        }}
+      >
+        <Header />
+
+        {[Home, Projects, Skills, Experience, Education, Contact].map((Section, i) => (
+          <Box key={i}>
+            <Section />
           </Box>
-          <DarkModeToggle toggleDarkMode={toggleDarkMode} isDarkMode={darkMode} />
-          <Footer />
-        </Box>
+        ))}
+
+        <Footer />
       </Box>
+
+      <DarkModeToggle toggleDarkMode={toggleDarkMode} isDarkMode={darkMode} />
     </ThemeProvider>
   )
 }

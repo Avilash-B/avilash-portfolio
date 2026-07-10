@@ -93,26 +93,23 @@ const Header = () => {
             top: 16,
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 'auto',
+            width: '100%',
+            maxWidth: (theme) => theme.breakpoints.values.lg,
             backgroundColor: 'transparent',
             zIndex: 1100,
+            px: 2,
           }}
         >
           <Paper
             elevation={3}
             sx={{
-              backgroundColor: (theme) => theme.palette.mode === 'dark'?'hsl(50 50% 1% / 50%)':'background.paper',
-              backdropFilter: 'blur(12px)',
-              borderRadius: '24px',
+              backgroundColor: (theme) =>
+                theme.palette.mode === 'dark' ? 'hsl(50 50% 1% / 50%)' : 'background.paper',
+              backdropFilter: 'blur(8px)',
+              borderRadius: 3,
               px: 3,
               py: 1.5,
               transition: 'all 0.3s ease-in-out',
-              '&:hover': {
-                backgroundColor: (theme) =>
-                  theme.palette.mode === 'light'
-                    ? 'rgba(255, 255, 255, 0.95)'
-                    : 'rgba(18, 18, 18, 0.9)',
-              },
             }}
           >
             <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" fontFamily="monospace">
