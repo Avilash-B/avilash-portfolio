@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Box, Container, Fade, Grid, Stack } from "@mui/material"
 import { useScrollAnimation } from "../../hooks/useScrollAnimation"
 import ProfileCard from "./ProfileCard"
@@ -13,6 +13,8 @@ const Home: React.FC = () => {
   const birthday = new Date("1995-08-27")
   const [age, setAge] = useState("")
   const [experience, setExperience] = useState("")
+  const [showSides, setShowSides] = useState(false)
+  const handleSignatureComplete = useCallback(() => setShowSides(true), [])
 
   useEffect(() => {
     const calculateAge = () => {
@@ -29,6 +31,14 @@ const Home: React.FC = () => {
     }, 100)
     return () => clearInterval(timer)
   }, [])
+
+  const slideStyle = (direction: "left" | "right"): React.CSSProperties => ({
+    opacity: showSides ? 1 : 0,
+    transform: showSides
+      ? "translateX(0)"
+      : direction === "left" ? "translateX(-60px)" : "translateX(60px)",
+    transition: "opacity 0.7s ease, transform 0.7s ease",
+  })
 
   return (
     <Box
@@ -47,12 +57,23 @@ const Home: React.FC = () => {
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 10 }}>
         <Fade in={isVisible} timeout={1000}>
           <Box ref={ref}>
-            <Grid container spacing={2} alignItems="stretch">
-              <Grid size={{ xs: 12, md: 3.3 }}>
-                <ProfileCard />
+            <Grid
+              container
+              spacing={2}
+              alignItems="stretch"
+              sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
+            >
+              <Grid
+                size={{ xs: 12, md: 3.3 }}
+                style={{
+                  transform: showSides ? "translateX(0)" : "translateX(calc(50vw - 50% - 16px))",
+                  transition: "transform 0.7s ease",
+                }}
+              >
+                <ProfileCard onComplete={handleSignatureComplete} />
               </Grid>
 
-              <Grid size={{ xs: 12, md: 2 }}>
+              <Grid size={{ xs: 12, md: 2 }} style={slideStyle("left")}>
                 <Stack spacing={2}>
                   <StatCard label="Experience" value={experience} unit="years" />
                   <StatCard label="Projects" value="20" unit="delivered" />
@@ -60,7 +81,7 @@ const Home: React.FC = () => {
                 </Stack>
               </Grid>
 
-              <Grid size={{ xs: 12, md: 6.7 }}>
+              <Grid size={{ xs: 12, md: 6.7 }} style={slideStyle("right")}>
                 <BioCards age={age} />
               </Grid>
             </Grid>

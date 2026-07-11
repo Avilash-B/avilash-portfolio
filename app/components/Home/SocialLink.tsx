@@ -22,9 +22,9 @@ const SocialLink = ({
       rel={download ? '' : 'noopener noreferrer'}
       download={download}
       sx={{
-        color: 'text.primary',
+        color: 'inherit',
         transition: 'all 0.3s ease-in-out',
-        '&:hover': { color: 'text.secondary', transform: 'scale(1.5)' },
+        '&:hover': { color: 'inherit', opacity: 0.7, transform: 'scale(1.5)' },
       }}
       aria-label={label}
     >

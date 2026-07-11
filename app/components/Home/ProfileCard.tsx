@@ -4,8 +4,9 @@ import Image from "next/image"
 import { Box, Stack } from "@mui/material"
 import { LinkedIn, GitHub, Instagram, FileDownload } from "@mui/icons-material"
 import SocialLink from "./SocialLink"
+import SignatureText from "./SignatureText"
 
-const ProfileCard = () => (
+const ProfileCard = ({ onComplete }: { onComplete?: () => void }) => (
   <Stack spacing={2} sx={{ height: '100%', justifyContent: 'center' }}>
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Box
@@ -29,12 +30,17 @@ const ProfileCard = () => (
       </Box>
     </Box>
 
-    <Stack direction="row" spacing={1.2} alignItems="center" justifyContent="center">
-      <SocialLink href="https://www.linkedin.com/in/avilashbharti" icon={<LinkedIn />} label="LinkedIn" />
-      <SocialLink href="https://github.com/avilash-b" icon={<GitHub />} label="GitHub" />
-      <SocialLink href="https://www.instagram.com/avilash_bharti" icon={<Instagram />} label="Instagram" />
-      <SocialLink href="/docs/resume.pdf" icon={<FileDownload />} label="Download Resume" download />
-    </Stack>
+    <Box sx={{ color: '#ffffff' }}>
+      <Stack direction="row" spacing={1.2} alignItems="center" justifyContent="center">
+        <SocialLink href="https://www.linkedin.com/in/avilashbharti" icon={<LinkedIn />} label="LinkedIn" />
+        <SocialLink href="https://github.com/avilash-b" icon={<GitHub />} label="GitHub" />
+        <SocialLink href="https://www.instagram.com/avilash_bharti" icon={<Instagram />} label="Instagram" />
+        <SocialLink href="/docs/resume.pdf" icon={<FileDownload />} label="Download Resume" download />
+      </Stack>
+      <Box sx={{ mt: 1 }}>
+        <SignatureText onComplete={onComplete} />
+      </Box>
+    </Box>
   </Stack>
 )
 
