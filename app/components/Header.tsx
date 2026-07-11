@@ -21,6 +21,7 @@ import { Menu, Close } from "@mui/icons-material"
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [mounted, setMounted] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
@@ -32,6 +33,16 @@ const Header = () => {
     if (!isMobile) {
       setIsMenuOpen(false)
     }
+  }, [isMobile])
+
+  useEffect(() => {
+    if (isMobile) return
+    const container = document.querySelector('[data-scroll-container]') as HTMLElement | null
+    if (!container) return
+    const handleScroll = () => setIsScrolled(container.scrollTop >= 100)
+    handleScroll()
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    return () => container.removeEventListener('scroll', handleScroll)
   }, [isMobile])
 
   useEffect(() => {
@@ -90,23 +101,24 @@ const Header = () => {
           position="fixed"
           elevation={0}
           sx={{
-            top: 16,
-            left: '50%',
-            transform: 'translateX(-50%)',
+            top: isScrolled ? 0 : 16,
+            left: isScrolled ? 0 : '50%',
+            transform: isScrolled ? 'none' : 'translateX(-50%)',
             width: '100%',
-            maxWidth: (theme) => theme.breakpoints.values.lg,
+            maxWidth: isScrolled ? '100%' : (theme) => theme.breakpoints.values.lg,
             backgroundColor: 'transparent',
             zIndex: 1100,
-            px: 2,
+            px: isScrolled ? 0 : 2,
+            transition: 'all 0.3s ease-in-out',
           }}
         >
           <Paper
-            elevation={3}
+            elevation={isScrolled ? 0 : 3}
             sx={{
               backgroundColor: (theme) =>
                 theme.palette.mode === 'dark' ? 'hsl(50 50% 1% / 50%)' : 'background.paper',
               backdropFilter: 'blur(8px)',
-              borderRadius: 3,
+              borderRadius: isScrolled ? 0 : 8,
               px: 3,
               py: 1.5,
               transition: 'all 0.3s ease-in-out',

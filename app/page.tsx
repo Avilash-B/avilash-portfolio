@@ -73,6 +73,7 @@ export default function Portfolio() {
 
       {/* Scroll-snap container — sections glide over the fixed Vanta */}
       <Box
+        data-scroll-container
         sx={{
           position: 'relative',
           zIndex: 1,
