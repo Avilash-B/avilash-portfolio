@@ -13,6 +13,7 @@ import {
 } from "@mui/material"
 import { Launch, GitHub } from "@mui/icons-material"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
+import { glassSx, glassHoverSx } from "../styles/glass"
 
 const Projects = () => {
   const [visibleCards, setVisibleCards] = useState<boolean[]>([])
@@ -181,28 +182,21 @@ const Projects = () => {
                     }}
                     data-index={index}
                     elevation={3}
-                    sx={{
+                    sx={(theme) => ({
+                      ...glassSx(theme),
                       height: 'auto',
                       width: '100%',
                       maxWidth: 400,
                       display: 'flex',
                       flexDirection: 'column',
-                      backgroundColor: (theme) => 
-                        theme.palette.mode === 'dark' 
-                          ? 'rgba(18, 18, 18, 0.8)' 
-                          : 'rgba(255, 255, 255, 0.8)',
-                      backdropFilter: 'blur(8px)',
                       borderRadius: 4,
                       transition: 'all 0.3s ease-in-out',
                       '&:hover': {
                         transform: 'translateY(-4px)',
                         boxShadow: 6,
-                        backgroundColor: (theme) => 
-                          theme.palette.mode === 'dark' 
-                            ? 'rgba(18, 18, 18, 0.9)' 
-                            : 'rgba(255, 255, 255, 0.9)',
+                        ...glassHoverSx(theme),
                       },
-                    }}
+                    })}
                   >
                   <CardContent 
                     sx={{ 

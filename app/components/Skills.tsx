@@ -18,6 +18,7 @@ import {
 import {
   TbBrandCSharp, TbSql
 } from 'react-icons/tb'
+import { glassSx } from "../styles/glass"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
 import React from 'react'
 
@@ -247,7 +248,8 @@ const Skills = () => {
                   >
                     <Paper
                       elevation={hoveredSkill === skill.name ? 8 : 2}
-                      sx={{
+                      sx={(theme) => ({
+                        ...(hoveredSkill === skill.name ? {} : glassSx(theme)),
                         p: 2,
                         display: 'flex',
                         flexDirection: 'column',
@@ -260,7 +262,7 @@ const Skills = () => {
                         position: 'relative',
                         backgroundColor: hoveredSkill === skill.name
                           ? 'primary.main'
-                          : 'background.paper',
+                          : undefined,
                         color: hoveredSkill === skill.name
                           ? 'primary.contrastText'
                           : 'text.primary',
@@ -298,7 +300,7 @@ const Skills = () => {
                             animation: 'pulse 2s infinite',
                           },
                         }),
-                      }}
+                      })}
                       onMouseEnter={() => handleMouseEnter(skill.name, index)}
                       onMouseLeave={handleMouseLeave}
                     >

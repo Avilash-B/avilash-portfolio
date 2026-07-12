@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useLayoutEffect, useRef } from "react"
 import { Box, Container, Fade, Grid, Stack } from "@mui/material"
 import { useScrollAnimation } from "../../hooks/useScrollAnimation"
 import ProfileCard from "./ProfileCard"
@@ -15,6 +15,19 @@ const Home: React.FC = () => {
   const [experience, setExperience] = useState("")
   const [showSides, setShowSides] = useState(false)
   const handleSignatureComplete = useCallback(() => setShowSides(true), [])
+
+  const gridContainerRef = useRef<HTMLDivElement>(null)
+  const profileItemRef = useRef<HTMLDivElement>(null)
+  const [centerOffset, setCenterOffset] = useState(0)
+
+  useLayoutEffect(() => {
+    const container = gridContainerRef.current
+    const item = profileItemRef.current
+    if (!container || !item) return
+    const containerCenter = container.offsetWidth / 2
+    const itemCenter = item.offsetLeft + item.offsetWidth / 2
+    setCenterOffset(containerCenter - itemCenter)
+  }, [])
 
   useEffect(() => {
     const calculateAge = () => {
@@ -61,13 +74,15 @@ const Home: React.FC = () => {
               container
               spacing={2}
               alignItems="stretch"
+              ref={gridContainerRef}
               sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
             >
               <Grid
                 size={{ xs: 12, md: 3.3 }}
+                ref={profileItemRef}
                 style={{
-                  transform: showSides ? "translateX(0)" : "translateX(calc(50vw - 50% - 16px))",
-                  transition: "transform 0.7s ease",
+                  transform: showSides ? "translateX(0)" : `translateX(${centerOffset}px)`,
+                  transition: showSides ? "transform 0.7s ease" : "none",
                 }}
               >
                 <ProfileCard onComplete={handleSignatureComplete} />

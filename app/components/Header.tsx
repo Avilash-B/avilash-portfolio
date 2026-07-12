@@ -17,6 +17,7 @@ import {
   Backdrop
 } from "@mui/material"
 import { Menu, Close } from "@mui/icons-material"
+import { glassSx } from "../styles/glass"
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -80,17 +81,16 @@ const Header = () => {
           onClick={toggleMenu}
           aria-label="Toggle menu"
           aria-expanded={isMenuOpen}
-          sx={{
+          sx={(theme) => ({
+            ...glassSx(theme),
             position: 'fixed',
             top: 16,
             left: 16,
             zIndex: 1300,
-            backgroundColor: 'background.paper',
-            backdropFilter: 'blur(8px)',
             '&:hover': {
               backgroundColor: 'action.hover',
             },
-          }}
+          })}
         >
           {isMenuOpen ? <Close /> : <Menu />}
         </IconButton>
@@ -114,15 +114,14 @@ const Header = () => {
         >
           <Paper
             elevation={isScrolled ? 0 : 3}
-            sx={{
-              backgroundColor: (theme) =>
-                theme.palette.mode === 'dark' ? 'hsl(50 50% 1% / 50%)' : 'background.paper',
-              backdropFilter: 'blur(8px)',
+            sx={(theme) => ({
+              ...glassSx(theme),
               borderRadius: isScrolled ? 0 : 8,
+              borderColor: isScrolled ? 'transparent' : glassSx(theme).borderColor,
               px: 3,
               py: 1.5,
               transition: 'all 0.3s ease-in-out',
-            }}
+            })}
           >
             <Stack direction="row" spacing={1} alignItems="center" justifyContent="center" fontFamily="monospace">
               {navItems.map((item) => (

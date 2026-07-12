@@ -13,6 +13,7 @@ import {
 } from "@mui/material"
 import { Email, LocationOn } from "@mui/icons-material"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
+import { glassSx, glassHoverSx } from "../styles/glass"
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -177,10 +178,9 @@ const Contact = () => {
 
               <Paper
                 elevation={3}
-                sx={{
+                sx={(theme) => ({
+                  ...glassSx(theme),
                   p: 3,
-                  backgroundColor: 'background.paper',
-                  backdropFilter: 'blur(8px)',
                   borderRadius: 4,
                   transition: 'all 0.3s ease-in-out',
                   width: '100%',
@@ -188,8 +188,9 @@ const Contact = () => {
                   '&:hover': {
                     transform: 'translateY(-2px)',
                     boxShadow: 4,
+                    ...glassHoverSx(theme),
                   },
-                }}
+                })}
               >
                 <Box component="form" onSubmit={handleSubmit} sx={{ width: '100%' }}>
                   <Stack spacing={3} sx={{ width: '100%' }}>
