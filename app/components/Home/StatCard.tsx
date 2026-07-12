@@ -3,15 +3,14 @@
 import { useRef } from "react"
 import { Paper, Typography } from "@mui/material"
 import type React from "react"
+import { glassSx } from "../../styles/glass"
 
-const paperSx = {
-  backgroundColor: (theme: any) =>
-    theme.palette.mode === 'dark' ? 'hsl(50 50% 1% / 50%)' : 'rgba(255, 255, 255, 0.9)',
-  backdropFilter: 'blur(8px)',
+const paperSx = (theme: import("@mui/material/styles").Theme) => ({
+  ...glassSx(theme),
   borderRadius: 3,
   p: 2.5,
   width: '100%',
-} as const
+})
 
 const StatCard = ({
   label,
@@ -51,12 +50,12 @@ const StatCard = ({
       ref={paperRef}
       elevation={3}
       onMouseDown={onMouseDown}
-      sx={{
-        ...paperSx,
+      sx={(theme) => ({
+        ...paperSx(theme),
         cursor: 'grab',
         userSelect: 'none',
         '&:active': { cursor: 'grabbing' },
-      }}
+      })}
     >
       <Typography variant="body1" sx={{ color: 'secondary.main', fontFamily: 'monospace', fontSize: '0.95rem' }}>
         {label}

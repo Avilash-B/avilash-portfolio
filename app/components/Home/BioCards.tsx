@@ -2,16 +2,16 @@
 
 import { useRef } from "react"
 import { Box, Paper, Stack, Typography } from "@mui/material"
+import type { Theme } from "@mui/material/styles"
 import type React from "react"
+import { glassSx } from "../../styles/glass"
 
-const paperSx = {
-  backgroundColor: (theme: any) =>
-    theme.palette.mode === 'dark' ? 'hsl(50 50% 1% / 50%)' : 'rgba(255, 255, 255, 0.9)',
-  backdropFilter: 'blur(8px)',
+const paperSx = (theme: Theme) => ({
+  ...glassSx(theme),
   borderRadius: 3,
   p: 2.5,
   width: '100%',
-} as const
+})
 
 const DraggablePaper = ({ children, sx = {} }: { children: React.ReactNode; sx?: object }) => {
   const paperRef = useRef<HTMLDivElement>(null)
@@ -43,7 +43,7 @@ const DraggablePaper = ({ children, sx = {} }: { children: React.ReactNode; sx?:
       ref={paperRef}
       elevation={3}
       onMouseDown={onMouseDown}
-      sx={{ ...paperSx, cursor: 'grab', userSelect: 'none', '&:active': { cursor: 'grabbing' }, ...sx }}
+      sx={(theme: Theme) => ({ ...paperSx(theme), cursor: 'grab', userSelect: 'none', '&:active': { cursor: 'grabbing' }, ...sx })}
     >
       {children}
     </Paper>
