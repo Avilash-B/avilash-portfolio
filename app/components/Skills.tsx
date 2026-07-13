@@ -206,7 +206,7 @@ const Skills = () => {
               component="h2"
               sx={{
                 fontWeight: 'bold',
-                mb: 4,
+                // mb: 4,
                 textAlign: 'center',
                 color: 'text.primary',
                 fontFamily: 'monospace',
@@ -215,7 +215,7 @@ const Skills = () => {
               Skills
             </Typography>
 
-            <Box
+            {false && <Box
               sx={{
                 display: 'grid',
                 gridTemplateColumns: {
@@ -358,7 +358,8 @@ const Skills = () => {
                   </Box>
                 )
               })}
-            </Box>
+            </Box>}
+            {/* <KnowledgeTreeSection /> */}
 
             {/* Add keyframes for pulse animation */}
             <style jsx>{`

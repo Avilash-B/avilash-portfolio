@@ -6,6 +6,7 @@ import Header from './components/Header'
 import Home from './components/Home'
 import Projects from './components/Projects'
 import Skills from './components/Skills'
+import KnowledgeTreeSection from './components/KnowledgeTree'
 import Experience from './components/Experience'
 import Education from './components/Education'
 import Contact from './components/Contact'
@@ -85,7 +86,7 @@ export default function Portfolio() {
       >
         <Header />
 
-        {[Home, Skills, Experience, Education, Projects, Contact].map(
+        {[Home, KnowledgeTreeSection, Projects, Experience, Education, Contact].map(
           (Section, i) => (
             <Box key={i}>
               <Section />

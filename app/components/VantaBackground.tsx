@@ -24,6 +24,8 @@ const VantaBackground: React.FC<VantaBackgroundProps> = ({ children }) => {
           gyroControls: false,
           minHeight: 200.0,
           minWidth: 200.0,
+          size: 2.00,
+          amplitudeFactor: 1.00,
         }),
       )
     }

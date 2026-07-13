@@ -67,8 +67,8 @@ const Header = () => {
 
   const navItems = [
     { label: 'Home', href: '#home' },
+    { label: 'Skills', href: '#knowledge-tree' },    
     { label: 'Projects', href: '#projects' },
-    { label: 'Skills', href: '#skills' },
     { label: 'Experience', href: '#experience' },
     { label: 'Education', href: '#education' },
     { label: 'Contact', href: '#contact' },
@@ -119,7 +119,7 @@ const Header = () => {
               borderRadius: isScrolled ? 0 : 8,
               borderColor: isScrolled ? 'transparent' : glassSx(theme).borderColor,
               px: 3,
-              py: 1.5,
+              py: isScrolled ? 0.5 : 1.5,
               transition: 'all 0.3s ease-in-out',
             })}
           >
