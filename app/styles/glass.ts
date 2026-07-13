@@ -3,7 +3,7 @@ import type { Theme } from "@mui/material/styles"
 /**
  * Shared liquid-glass surface treatment for card/paper elements.
  * Tuned separately for dark/light so the frosted effect reads correctly
- * against the Vanta background in both themes.
+ * against the animated shader background in both themes.
  */
 export const glassSx = (theme: Theme) => ({
   backgroundColor:

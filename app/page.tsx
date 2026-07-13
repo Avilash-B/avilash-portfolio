@@ -58,21 +58,11 @@ export default function Portfolio() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
 
-      {/* Fixed Vanta background — rendered once, sits behind everything */}
-      <VantaBackground>
-        <Box
-          sx={{
-            position: "absolute",
-            inset: 0,
-            background: (theme) =>
-              theme.palette.mode === "dark"
-                ? "linear-gradient(to bottom right, rgba(30,58,138,0.2), rgba(88,28,135,0.2))"
-                : "linear-gradient(to bottom right, rgba(96,165,250,0.2), rgba(168,85,247,0.2))",
-          }}
-        />
-      </VantaBackground>
+      {/* Fixed shader background — rendered once, sits behind everything */}
+      <VantaBackground darkMode={darkMode} />
 
-      {/* Scroll-snap container — sections glide over the fixed Vanta */}
+
+      {/* Scroll-snap container — sections glide over the fixed shader background */}
       <Box
         data-scroll-container
         sx={{
@@ -86,7 +76,7 @@ export default function Portfolio() {
       >
         <Header />
 
-        {[Home, KnowledgeTreeSection, Projects, Experience, Education, Contact].map(
+        {[Home, KnowledgeTreeSection, Experience, Education, Projects, Contact].map(
           (Section, i) => (
             <Box key={i}>
               <Section />

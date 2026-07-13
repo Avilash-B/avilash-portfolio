@@ -265,7 +265,7 @@ export const treeData: TreeData = {
     {
       id: 'portfolio', name: 'Portfolio Website', branchId: 'frontend',
       skills: ['react', 'typescript', 'mui', 'docker', 'linux', 'coolify', 'cloudflare', 'claude-code', 'windsurf', 'kiro'],
-      description: 'This site: Next.js, MUI, Vanta and a living knowledge tree.',
+      description: 'This site: Next.js, MUI, a Three.js shader background and a living knowledge tree.',
     },
   ],
 }

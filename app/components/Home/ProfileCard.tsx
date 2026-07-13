@@ -11,26 +11,35 @@ const ProfileCard = ({ onComplete }: { onComplete?: () => void }) => (
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Box
         sx={{
-          borderRadius: '50%',
-          border: (theme) =>
-            `4px solid ${theme.palette.mode === 'dark' ? theme.palette.grey[800] : 'white'}`,
-          overflow: 'hidden',
+          position: 'relative',
+          width: { xs: 190, sm: 210, md: 220 },
+          aspectRatio: '353 / 466',
+          borderRadius: '28px',
+          p: '2px',
           flexShrink: 0,
+          background: 'linear-gradient(135deg, #1e3a8a, #581c87, #0e7490)',
+          boxShadow: (theme) =>
+            theme.palette.mode === 'dark'
+              ? '0 12px 40px rgba(88, 28, 135, 0.35)'
+              : '0 12px 40px rgba(124, 174, 236, 0.35)',
           transition: 'transform 0.3s ease-in-out',
-          '&:hover': { transform: 'scale(1.2)' },
+          '&:hover': { transform: 'scale(1.05)' },
         }}
       >
-        <Image
-          src="/images/avilash-home.jpg"
-          alt="Avilash"
-          width={200}
-          height={200}
-          style={{ display: 'block', borderRadius: '10%' }}
-        />
+        <Box sx={{ position: 'relative', width: '100%', height: '100%', borderRadius: '25px', overflow: 'hidden' }}>
+          <Image
+            src="/images/avilash-2.jpg"
+            alt="Avilash"
+            fill
+            sizes="(max-width: 600px) 190px, (max-width: 900px) 210px, 220px"
+            style={{ objectFit: 'cover', objectPosition: 'top' }}
+            priority
+          />
+        </Box>
       </Box>
     </Box>
 
-    <Box sx={{ color: '#ffffff' }}>
+    <Box sx={{ color: 'text.primary' }}>
       <Stack direction="row" spacing={1.2} alignItems="center" justifyContent="center">
         <SocialLink href="https://www.linkedin.com/in/avilashbharti" icon={<LinkedIn />} label="LinkedIn" />
         <SocialLink href="https://github.com/avilash-b" icon={<GitHub />} label="GitHub" />
