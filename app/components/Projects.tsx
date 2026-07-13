@@ -9,7 +9,6 @@ import {
   Stack,
   Link,
   Fade,
-  Slide
 } from "@mui/material"
 import { Launch, GitHub } from "@mui/icons-material"
 import { useScrollAnimation } from "../hooks/useScrollAnimation"
