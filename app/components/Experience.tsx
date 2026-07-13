@@ -14,7 +14,7 @@ const experiences = [
     url: "https://www.ahead.com/",
     position: "Technical Consultant",
     duration: "May 2025 - Present",
-    description: "",
+    description: "Contributed to full-stack development for enterprise applications in the US pharmacy and financial services domains, delivering scalable, high-quality solutions. Improved development velocity and code quality by adopting AI-powered coding tools",
   },
   {
     company: "Nagarro",
