@@ -61,12 +61,12 @@ export default function Portfolio() {
       <VantaBackground>
         <Box
           sx={{
-            position: 'absolute',
+            position: "absolute",
             inset: 0,
             background: (theme) =>
-              theme.palette.mode === 'dark'
-                ? 'linear-gradient(to bottom right, rgba(30,58,138,0.2), rgba(88,28,135,0.2))'
-                : 'linear-gradient(to bottom right, rgba(96,165,250,0.2), rgba(168,85,247,0.2))',
+              theme.palette.mode === "dark"
+                ? "linear-gradient(to bottom right, rgba(30,58,138,0.2), rgba(88,28,135,0.2))"
+                : "linear-gradient(to bottom right, rgba(96,165,250,0.2), rgba(168,85,247,0.2))",
           }}
         />
       </VantaBackground>
@@ -75,27 +75,29 @@ export default function Portfolio() {
       <Box
         data-scroll-container
         sx={{
-          position: 'relative',
+          position: "relative",
           zIndex: 1,
-          height: '100vh',
-          overflowY: 'scroll',
-          '&::-webkit-scrollbar': { display: 'none' },
-          scrollbarWidth: 'none',
+          height: "100vh",
+          overflowY: "scroll",
+          "&::-webkit-scrollbar": { display: "none" },
+          scrollbarWidth: "none",
         }}
       >
         <Header />
 
-        {[Home, Projects, Skills, Experience, Education, Contact].map((Section, i) => (
-          <Box key={i}>
-            <Section />
-          </Box>
-        ))}
+        {[Home, Skills, Experience, Education, Projects, Contact].map(
+          (Section, i) => (
+            <Box key={i}>
+              <Section />
+            </Box>
+          ),
+        )}
 
         <Footer />
       </Box>
 
       <DarkModeToggle toggleDarkMode={toggleDarkMode} isDarkMode={darkMode} />
     </ThemeProvider>
-  )
+  );
 }
 

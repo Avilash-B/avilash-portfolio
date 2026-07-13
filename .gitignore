@@ -6,3 +6,5 @@ SEO_CHECKLIST.md
 
 # Environment variables
 .env.local
+tsconfig.tsbuildinfo
+tsconfig.tsbuildinfo
