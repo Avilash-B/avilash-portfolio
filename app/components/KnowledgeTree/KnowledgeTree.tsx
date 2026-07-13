@@ -219,9 +219,9 @@ const KnowledgeTree = ({
         position: 'relative',
         // Square that fills the largest area fitting inside its flex parent,
         // whose height is already the exact vertical space left on screen.
-        width: '100%',
+        width: '95%',
         height: '100%',
-        maxWidth: '100%',
+        maxWidth: '90%',
         maxHeight: '100%',
         aspectRatio: '1 / 1',
         mx: 'auto',

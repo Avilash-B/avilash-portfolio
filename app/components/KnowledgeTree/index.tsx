@@ -165,7 +165,7 @@ const KnowledgeTreeSection = () => {
                   width: 220,
                   "& .MuiInputBase-root": {
                     fontFamily: "monospace",
-                    fontSize: "0.85rem",
+                    fontSize: ".75rem",
                   },
                 }}
               />
@@ -228,11 +228,12 @@ const KnowledgeTreeSection = () => {
               <Typography
                 sx={{
                   textAlign: "center",
-                  color: "text.secondary",
+                  color: "text.primary",
                   mt: 0.75,
+                  pb: 0.75,
                   fontFamily: "monospace",
-                  fontSize: "0.65rem",
-                  opacity: 0.7,
+                  fontSize: "0.70rem",
+                  opacity: 1,
                   flexShrink: 0,
                 }}
               >
