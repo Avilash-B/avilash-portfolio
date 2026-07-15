@@ -10,6 +10,7 @@ const paperSx = (theme: import("@mui/material/styles").Theme) => ({
   borderRadius: 3,
   p: 2.5,
   width: '100%',
+  flex: 1,
 })
 
 const StatCard = ({
