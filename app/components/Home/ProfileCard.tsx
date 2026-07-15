@@ -1,12 +1,21 @@
 "use client"
 
+import { useCallback, useState } from "react"
 import Image from "next/image"
-import { Box, Stack } from "@mui/material"
+import { Box, Fade, Stack } from "@mui/material"
 import { LinkedIn, GitHub, Instagram, FileDownload } from "@mui/icons-material"
 import SocialLink from "./SocialLink"
 import SignatureText from "./SignatureText"
+import KoFiButton from "./KoFiButton"
 
-const ProfileCard = ({ onComplete }: { onComplete?: () => void }) => (
+const ProfileCard = ({ onComplete }: { onComplete?: () => void }) => {
+  const [signatureDone, setSignatureDone] = useState(false)
+  const handleComplete = useCallback(() => {
+    setSignatureDone(true)
+    onComplete?.()
+  }, [onComplete])
+
+  return (
   <Stack spacing={2} sx={{ height: '100%', justifyContent: 'center' }}>
     <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Box
@@ -47,10 +56,16 @@ const ProfileCard = ({ onComplete }: { onComplete?: () => void }) => (
         <SocialLink href="/docs/resume.pdf" icon={<FileDownload />} label="Download Resume" download />
       </Stack>
       <Box sx={{ mt: 1 }}>
-        <SignatureText onComplete={onComplete} />
+        <SignatureText onComplete={handleComplete} />
       </Box>
+      <Fade in={signatureDone} timeout={600} mountOnEnter unmountOnExit>
+        <Box sx={{ mt: 1.5, display: 'flex', justifyContent: 'center' }}>
+          <KoFiButton />
+        </Box>
+      </Fade>
     </Box>
   </Stack>
-)
+  )
+}
 
 export default ProfileCard

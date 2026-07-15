@@ -89,7 +89,7 @@ const Home: React.FC = () => {
               </Grid>
 
               <Grid size={{ xs: 12, md: 2 }} style={slideStyle("left")}>
-                <Stack spacing={2}>
+                <Stack spacing={2} justifyContent="space-between" sx={{ height: '100%' }}>
                   <StatCard label="Experience" value={experience} unit="years" />
                   <StatCard label="Projects" value="20" unit="delivered" />
                   <StatCard label="Clients" value="10" unit="worked with" />
