@@ -78,7 +78,7 @@ const Home: React.FC = () => {
               sx={{ flexWrap: { xs: "wrap", md: "nowrap" } }}
             >
               <Grid
-                size={{ xs: 12, md: 3.3 }}
+                size={{ xs: 12, md: 2.4 }}
                 ref={profileItemRef}
                 style={{
                   transform: showSides ? "translateX(0)" : `translateX(${centerOffset}px)`,
@@ -89,14 +89,14 @@ const Home: React.FC = () => {
               </Grid>
 
               <Grid size={{ xs: 12, md: 2 }} style={slideStyle("left")}>
-                <Stack spacing={2} justifyContent="space-between" sx={{ height: '100%' }}>
+                <Stack spacing={2} sx={{ height: '100%' }}>
                   <StatCard label="Experience" value={experience} unit="years" />
                   <StatCard label="Projects" value="20" unit="delivered" />
                   <StatCard label="Clients" value="10" unit="worked with" />
                 </Stack>
               </Grid>
 
-              <Grid size={{ xs: 12, md: 6.7 }} style={slideStyle("right")}>
+              <Grid size={{ xs: 12, md: 7.6 }} style={slideStyle("right")}>
                 <BioCards age={age} />
               </Grid>
             </Grid>
