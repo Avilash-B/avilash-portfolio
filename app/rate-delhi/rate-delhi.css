@@ -1,0 +1,66 @@
+.pricing-delhi{
+  --ink:#101820;
+  --paper:#fcf7ec;
+  --saffron:#E8A020;
+  --teal:#0E6B63;
+  --line:#D8D2C4;
+  --muted:#5A6068;
+}
+.pricing-delhi{background:var(--paper);color:var(--ink);font-family:'IBM Plex Sans',sans-serif;line-height:1.5}
+.pricing-delhi .sheet{max-width:860px;margin:0 auto;padding:48px 40px 56px}
+
+.pricing-delhi header{border-bottom:4px solid var(--ink);padding-bottom:20px;margin-bottom:8px}
+.pricing-delhi .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--teal)}
+.pricing-delhi h1{font-family:'Archivo',sans-serif;font-weight:900;font-size:clamp(30px,5.5vw,46px);line-height:1.05;margin-top:8px}
+.pricing-delhi h1 .amp{color:var(--saffron)}
+.pricing-delhi .sub{margin-top:10px;color:var(--muted);font-size:15px;max-width:560px}
+
+.pricing-delhi .sec{display:flex;align-items:baseline;gap:12px;margin:36px 0 14px}
+.pricing-delhi .sec h2{font-family:'Archivo',sans-serif;font-weight:700;font-size:19px;text-transform:uppercase;letter-spacing:.04em}
+.pricing-delhi .sec::after{content:"";flex:1;height:2px;background:var(--line)}
+
+.pricing-delhi .row{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:14px 0;border-bottom:1px dashed var(--line)}
+.pricing-delhi .row:last-child{border-bottom:none}
+.pricing-delhi .row .what{max-width:60%}
+.pricing-delhi .row .what strong{font-weight:600;font-size:15.5px}
+.pricing-delhi .row .what span{display:block;color:var(--muted);font-size:13px;margin-top:2px}
+.pricing-delhi .price{font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:16px;white-space:nowrap;text-align:right}
+.pricing-delhi .price small{display:block;font-family:'IBM Plex Sans',sans-serif;font-weight:400;color:var(--muted);font-size:12px;margin-top:2px}
+
+.pricing-delhi .steps{display:flex;gap:6px;align-items:flex-end;margin-top:14px}
+.pricing-delhi .step{flex:1;background:var(--teal);color:#fff;border-radius:4px 4px 0 0;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;padding:8px 4px;font-family:'IBM Plex Mono',monospace}
+.pricing-delhi .step b{font-size:13px;font-weight:600}
+.pricing-delhi .step i{font-style:normal;font-size:10.5px;opacity:.85;margin-top:2px;font-family:'IBM Plex Sans',sans-serif}
+.pricing-delhi .steps .step:nth-child(1){height:70px}
+.pricing-delhi .steps .step:nth-child(2){height:84px}
+.pricing-delhi .steps .step:nth-child(3){height:98px}
+.pricing-delhi .steps .step:nth-child(4){height:112px}
+.pricing-delhi .steps .step:nth-child(5){height:126px;background:var(--saffron);color:var(--ink)}
+.pricing-delhi .escnote{font-size:12.5px;color:var(--muted);margin-top:8px}
+
+.pricing-delhi .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:8px}
+.pricing-delhi .card{border:2px solid var(--ink);border-radius:8px;padding:14px 12px;background:#fff;position:relative}
+.pricing-delhi .card .hrs{font-family:'Archivo',sans-serif;font-weight:900;font-size:26px}
+.pricing-delhi .card .hrs em{font-style:normal;font-size:13px;font-weight:700;color:var(--muted)}
+.pricing-delhi .card .fee{font-family:'IBM Plex Mono',monospace;font-weight:600;color:var(--teal);margin-top:6px;font-size:15px}
+.pricing-delhi .card.hot{background:var(--ink);color:var(--paper)}
+.pricing-delhi .card.hot .fee{color:var(--saffron)}
+.pricing-delhi .card.hot .hrs em{color:#9AA0A6}
+.pricing-delhi .urgnote{font-size:12.5px;color:var(--muted);margin-top:10px}
+
+.pricing-delhi .terms{margin-top:36px;border-top:4px solid var(--ink);padding-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:8px 28px}
+.pricing-delhi .terms p{font-size:13px;color:var(--muted)}
+.pricing-delhi .terms p b{color:var(--ink);font-weight:600}
+
+@media(max-width:640px){
+  .pricing-delhi .sheet{padding:32px 20px 40px}
+  .pricing-delhi .grid{grid-template-columns:repeat(2,1fr)}
+  .pricing-delhi .row{flex-direction:column;gap:4px}
+  .pricing-delhi .row .what{max-width:100%}
+  .pricing-delhi .price{text-align:left}
+  .pricing-delhi .terms{grid-template-columns:1fr}
+}
+@media print{
+  .pricing-delhi{background:#fff}
+  .pricing-delhi .sheet{padding:24px}
+}
