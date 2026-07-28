@@ -12,6 +12,7 @@ import {
   ListItemText,
   Paper,
   Stack,
+  Tooltip,
   useTheme,
   useMediaQuery,
   Backdrop
@@ -67,12 +68,14 @@ const Header = () => {
 
   const navItems = [
     { label: 'Home', href: '#home' },
-    { label: 'Skills', href: '#knowledge-tree' },    
+    { label: 'Skills', href: '#knowledge-tree' },
     { label: 'Experience', href: '#experience' },
     { label: 'Education', href: '#education' },
     { label: 'Projects', href: '#projects' },
     { label: 'Contact', href: '#contact' },
   ]
+
+  const blogUrl = process.env.NEXT_PUBLIC_BLOG_URL
 
   return (
     <>
@@ -129,6 +132,13 @@ const Header = () => {
                   {item.label}
                 </NavLink>
               ))}
+              {blogUrl && (
+                <Tooltip title="Visit my blogging website">
+                  <NavLink href={blogUrl} external>
+                    Blog
+                  </NavLink>
+                </Tooltip>
+              )}
             </Stack>
           </Paper>
         </AppBar>
@@ -138,12 +148,13 @@ const Header = () => {
         anchor="left"
         open={isMenuOpen}
         onClose={toggleMenu}
-        sx={{
+        sx={(theme) => ({
           '& .MuiDrawer-paper': {
+            ...glassSx(theme),
             width: 256,
-            backgroundColor: 'background.paper',
+            borderRadius: 0,
           },
-        }}
+        })}
       >
         <Box sx={{ pt: 8 }}>
           <List>
@@ -162,6 +173,20 @@ const Header = () => {
                 </ListItemButton>
               </ListItem>
             ))}
+            {blogUrl && (
+              <ListItem disablePadding>
+                <ListItemButton
+                  component="a"
+                  href={blogUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  title="Visit my blogging website"
+                  onClick={toggleMenu}
+                >
+                  <ListItemText primary="Blog" />
+                </ListItemButton>
+              </ListItem>
+            )}
           </List>
         </Box>
       </Drawer>
@@ -177,11 +202,14 @@ const Header = () => {
   )
 }
 
-const NavLink = ({ href, children }: { href: string; children: React.ReactNode }) => (
+const NavLink = ({ href, children, external }: { href: string; children: React.ReactNode; external?: boolean }) => (
   <Box
     component="a"
     href={href}
+    target={external ? "_blank" : undefined}
+    rel={external ? "noopener noreferrer" : undefined}
     onClick={(e: React.MouseEvent) => {
+      if (external) return
       e.preventDefault()
       const target = document.querySelector(href)
       if (target) {
